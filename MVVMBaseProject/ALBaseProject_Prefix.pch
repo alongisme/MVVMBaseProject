@@ -1,0 +1,35 @@
+//
+//  ALBaseProject_Prefix.pch
+//  MVVMBaseProject
+//
+//  Created by along on 2017/4/11.
+//  Copyright © 2017年 along. All rights reserved.
+//
+
+#ifndef ALBaseProject_Prefix_pch
+#define ALBaseProject_Prefix_pch
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <ReactiveCocoa.h>
+#import "ALBaseViewModel.h"
+#import "ALBaseViewController.h"
+#import "ALTableViewController.h"
+#import "ALTableViewModel.h"
+#import "ALCollectionViewController.h"
+#import "ALCollectionViewModel.h"
+
+#import <Masonry.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "ALConfig.h"
+#import "ALAppDelegate.h"
+#import "ALBindViewModel.h"
+#import "ALShowMessageView.h"
+#import <MJExtension.h>
+
+#import "UIImage+UIImage_ResetSize.h"
+#endif
+
+
+#endif /* ALBaseProject_Prefix_pch */
