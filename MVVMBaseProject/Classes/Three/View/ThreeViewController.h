@@ -7,7 +7,8 @@
 //
 
 #import "ALBaseViewController.h"
+#import "ALScrollViewController.h"
 
-@interface ThreeViewController : ALBaseViewController
+@interface ThreeViewController : ALScrollViewController
 
 @end

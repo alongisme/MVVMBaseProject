@@ -22,10 +22,10 @@
 @property (nonatomic, copy) NSString *emptyDataTitle;
 
 @property (nonatomic, strong) RACCommand *didSelectCommand;
+
+//request data
 @property (nonatomic, strong) RACCommand *requestRemoteDataCommand;
 @property (nonatomic, strong) RACCommand *requestLoadMoreDataCommand;
-
-- (id)fetchLocalData;
 
 - (RACSignal *)requestRemoteDataSignal;
 

@@ -23,10 +23,13 @@
 
 @property (nonatomic, strong) id<ALViewModelServices> services;
 
+@property (nonatomic, strong) RACCommand *requestDataCommand;
+
 @property (nonatomic, strong) RACSubject *errors;
 
 - (instancetype)initWithServices:(id<ALViewModelServices>)Services params:(NSDictionary *)params;
 
 - (void)initialize;
+- (RACSignal *)requestDataSignal;
 - (void)makeEventAvailable;
 @end

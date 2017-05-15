@@ -36,8 +36,6 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.extendedLayoutIncludesOpaqueBars = YES;
-    
-    self.view.backgroundColor = AL_RandomColor;
 }
 
 - (void)bindViewModel {

@@ -15,6 +15,7 @@ pod 'Masonry'
 pod "AFNetworking"
 pod 'MJExtension'
 pod 'DZNEmptyDataSet'
+pod 'JRDB'
 
   # Pods for MVVMBaseProject
 

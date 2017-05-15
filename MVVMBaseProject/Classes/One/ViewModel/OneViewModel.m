@@ -39,24 +39,30 @@
         return [RACSignal empty];
     }];
     
+    
 }
 
 - (RACSignal *)requestRemoteDataSignal {
     return [[self.services.networkService requestDataWithUrl:@"/chapter/home" params:@{}] map:^id(NSDictionary *dataSource) {
-        NSDictionary *dataDic = dataSource[@"data"];
-        NSArray *chaptersArr = dataDic[@"chapters"];
+        NSDictionary *dataDic = [dataSource jk_dictionaryForKey:@"data"];
+        NSArray *chaptersArr = [dataDic jk_arrayForKey:@"chapters"];
+//        J_TruncateTable(OneModel);
         return [[chaptersArr.rac_sequence map:^id(id value) {
-            return [OneModel mj_objectWithKeyValues:value];
+            OneModel *model = [OneModel mj_objectWithKeyValues:value];
+//            J_Insert(model).updateResult;
+            return model;
         }] array];
     }];
 }
 
 - (RACSignal *)requestLoadMoreDataSignal {
     return [[self.services.networkService requestDataWithUrl:@"/chapter/home" params:@{@"nextPage":@(self.nextPage)}] map:^id(NSDictionary *dataSource) {
-        NSDictionary *dataDic = dataSource[@"data"];
-        NSArray *chaptersArr = dataDic[@"chapters"];
+        NSDictionary *dataDic = [dataSource jk_dictionaryForKey:@"data"];
+        NSArray *chaptersArr = [dataDic jk_arrayForKey:@"chapters"];
         return [[chaptersArr.rac_sequence map:^id(id value) {
-            return [OneModel mj_objectWithKeyValues:value];
+            OneModel *model = [OneModel mj_objectWithKeyValues:value];
+//            J_Insert(model).updateResult;
+            return model;
         }] array];
     }];
 }

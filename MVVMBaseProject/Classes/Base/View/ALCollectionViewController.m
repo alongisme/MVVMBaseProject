@@ -10,10 +10,15 @@
 #import "ALCollectionViewModel.h"
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
+NSString * const ALCollectionViewControllerLayoutSizeForItem = @"ALCollectionViewControllerLayoutSizeForItem";
+NSString * const ALCollectionViewControllerLayoutInsetForSection = @"ALCollectionViewControllerLayoutInsetForSection";
+NSString * const ALCollectionViewControllerLayoutMinimumLineSpacingForSection = @"ALCollectionViewControllerLayoutMinimumLineSpacingForSection";
+NSString * const ALCollectionViewControllerLayoutMinimumInteritemSpacingForSection = @"ALCollectionViewControllerLayoutMinimumInteritemSpacingForSection";
+
 @interface ALCollectionViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (nonatomic, strong) ALCollectionViewModel *viewModel;
 @property (nonatomic, strong) UICollectionView *alCollectionView;
-
+@property (nonatomic, strong) NSDictionary *itemLayoutOptionDictionary;
 @end
 
 @implementation ALCollectionViewController
@@ -75,11 +80,30 @@
     }];
 }
 
+- (NSDictionary *)UICollectionViewDelegateFlowLayoutOption {return nil;}
+
 - (void)dealloc {
     self.collection.dataSource = nil;
     self.collection.delegate = nil;
     self.collection.emptyDataSetDelegate = nil;
     self.collection.emptyDataSetSource = nil;
+}
+
+#pragma mark UICollectionViewDelegateFlowLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self UICollectionViewDelegateFlowLayoutOption][ALCollectionViewControllerLayoutSizeForItem] CGSizeValue];
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return [[self UICollectionViewDelegateFlowLayoutOption][ALCollectionViewControllerLayoutInsetForSection] UIEdgeInsetsValue];
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return [[self UICollectionViewDelegateFlowLayoutOption][ALCollectionViewControllerLayoutMinimumLineSpacingForSection] floatValue];
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return [[self UICollectionViewDelegateFlowLayoutOption][ALCollectionViewControllerLayoutMinimumInteritemSpacingForSection] floatValue];
 }
 
 #pragma mark UICollectionViewDataSource
@@ -142,7 +166,7 @@
 }
 
 - (CGPoint)offsetForEmptyDataSet:(UIScrollView *)scrollView {
-    return CGPointMake(0, -(self.collection.contentInset.top - self.collection.contentInset.bottom) / 2);
+    return CGPointMake(0, -(ALNavigationBarHeight - ALTabBarHeight) / 2);
 }
 
 - (UICollectionView *)alCollectionView {

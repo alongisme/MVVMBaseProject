@@ -37,20 +37,12 @@
     [cell bindViewModel:object];
 }
 
-#pragma mark UICollectionViewDelegateFlowLayout
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.view.bounds.size.width/2, 100);
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(0, 0, 0, 0);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
+- (NSDictionary *)UICollectionViewDelegateFlowLayoutOption {
+    return @{
+             ALCollectionViewControllerLayoutSizeForItem : [NSValue valueWithCGSize:CGSizeMake(self.view.bounds.size.width/2, 100)],
+             ALCollectionViewControllerLayoutInsetForSection : [NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)],
+             ALCollectionViewControllerLayoutMinimumLineSpacingForSection : @0,
+             ALCollectionViewControllerLayoutMinimumInteritemSpacingForSection : @0
+             };
 }
 @end

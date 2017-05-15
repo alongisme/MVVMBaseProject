@@ -37,7 +37,15 @@
 
 - (void)initialize {
     self.title = self.params[@"title"];
+    
+    @weakify(self);
+    self.requestDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self);
+        return [[self requestDataSignal] takeUntil:self.rac_willDeallocSignal];
+    }];
 }
+
+- (RACSignal *)requestDataSignal {return [RACSignal empty];}
 
 - (void)makeEventAvailable {}
 @end

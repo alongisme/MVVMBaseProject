@@ -8,12 +8,12 @@
 
 #import "ALNetworkServicelmpl.h"
 #import <AFNetworking.h>
-
 #import "ALHttpConfig.h"
 
 @implementation ALNetworkServicelmpl
 
 - (RACSignal *)requestDataWithUrl:(NSString *)url params:(NSDictionary *)params {
+        
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
         NSURLSessionTask *task = [[ALNetworkConnect sharedInstance].sessionManager GET:[[ALHttpConfig getALHttpAddress] stringByAppendingPathComponent:url] parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

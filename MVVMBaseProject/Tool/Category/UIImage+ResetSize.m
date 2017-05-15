@@ -1,14 +1,14 @@
 //
-//  UIImage+UIImage_ResetSize.m
+//  UIImage+ResetSize.m
 //  MVVMBaseProject
 //
 //  Created by along on 2017/4/17.
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import "UIImage+UIImage_ResetSize.h"
+#import "UIImage+ResetSize.h"
 
-@implementation UIImage (UIImage_ResetSize)
+@implementation UIImage (ResetSize)
 + (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize {
     UIGraphicsBeginImageContextWithOptions(reSize, NO, [UIScreen mainScreen].scale);
     

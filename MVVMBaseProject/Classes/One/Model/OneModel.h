@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface OneModel : NSObject
-@property (nonatomic, assign) NSInteger chapterSort;
-@property (nonatomic, assign) NSInteger chapterId;
+@property (nonatomic, assign) long chapterSort;
+@property (nonatomic, assign) long chapterId;
 @property (nonatomic, strong) NSString *chapterImage;
 @property (nonatomic, strong) NSString *chapterName;
 @end

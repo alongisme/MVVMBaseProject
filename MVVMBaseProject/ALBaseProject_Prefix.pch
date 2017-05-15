@@ -13,6 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <ReactiveCocoa.h>
+#import <JRDB.h>
 #import "ALBaseViewModel.h"
 #import "ALBaseViewController.h"
 #import "ALTableViewController.h"
@@ -27,8 +28,9 @@
 #import "ALBindViewModel.h"
 #import "ALShowMessageView.h"
 #import <MJExtension.h>
+#import "ALFileManager.h"
 
-#import "UIImage+UIImage_ResetSize.h"
+#import "ALCategory.h"
 #endif
 
 

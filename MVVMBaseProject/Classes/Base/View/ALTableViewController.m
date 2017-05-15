@@ -60,6 +60,7 @@
             }
         }];
     }
+    
 }
 
 - (void)dealloc {
@@ -154,6 +155,7 @@
 - (UITableView *)alTableView {
     if(!_alTableView) {
         _alTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, ALNavigationBarHeight, self.view.bounds.size.width, self.view.bounds.size.height - ALNavigationBarHeight - ALTabBarHeight) style:UITableViewStylePlain];
+        _alTableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _alTableView.delegate = self;
         _alTableView.dataSource = self;
         _alTableView.emptyDataSetSource = self;

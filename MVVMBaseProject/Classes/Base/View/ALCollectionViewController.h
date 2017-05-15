@@ -8,6 +8,11 @@
 
 #import "ALBaseViewController.h"
 
+UIKIT_EXTERN NSString * const ALCollectionViewControllerLayoutSizeForItem;
+UIKIT_EXTERN NSString * const ALCollectionViewControllerLayoutInsetForSection;
+UIKIT_EXTERN NSString * const ALCollectionViewControllerLayoutMinimumLineSpacingForSection;
+UIKIT_EXTERN NSString * const ALCollectionViewControllerLayoutMinimumInteritemSpacingForSection;
+
 @interface ALCollectionViewController : ALBaseViewController 
 @property (nonatomic, strong) UICollectionView *collection;
 

@@ -19,5 +19,7 @@ static NSString * const Debug_URL = @"http://www.suprc.org:8082/work-first";
 //正式环境 URL
 static NSString * const Release_URL = @"http://www.suprc.org:8082/work-first";
 
+//数据库保存路径名
+static NSString * const JRDB_DataBasePath = @"test.sqlite";
 
 #endif /* ALConst_h */

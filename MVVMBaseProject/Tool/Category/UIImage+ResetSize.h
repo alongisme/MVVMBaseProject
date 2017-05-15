@@ -1,5 +1,5 @@
 //
-//  UIImage+UIImage_ResetSize.h
+//  UIImage+ResetSize.h
 //  MVVMBaseProject
 //
 //  Created by along on 2017/4/17.
@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImage (UIImage_ResetSize)
+@interface UIImage (ResetSize)
 
 /**
  不失真设置指定图片大小
 
  @param image 图片
  @param reSize 新的size
- @return 新的突破
+ @return 新的图片
  */
 + (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize;
 @end

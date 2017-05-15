@@ -16,7 +16,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self fourLab];
+
+    UIView *fatherView = [UIView new];
+    fatherView.al_setFrame(0,100,150,250);
+    fatherView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:fatherView];
+    
+    UIView *view1 = [UIView new];
+    view1.al_setFrame(0,0,30,40);
+    view1.backgroundColor = AL_RandomColor;
+    [fatherView addSubview:view1];
+    
+    UIView *view2 = [UIView new];
+    view2.al_setFrame(0,0,30,40);
+    view2.backgroundColor = AL_RandomColor;
+    [fatherView addSubview:view2];
+
+    UIView *view3 = [UIView new];
+    view3.al_setFrame(0,0,30,40);
+    view3.backgroundColor = AL_RandomColor;
+    [fatherView addSubview:view3];
+
+    UIView *view4 = [UIView new];
+    view4.al_setFrame(0,0,30,40);
+    view4.backgroundColor = AL_RandomColor;
+    [fatherView addSubview:view4];
+    
+    fatherView.al_alignment(ALFrameAlignmentStyleBothVerticalCenter);
 }
 
 - (UILabel *)fourLab {

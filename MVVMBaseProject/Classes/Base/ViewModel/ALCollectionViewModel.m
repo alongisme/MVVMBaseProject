@@ -25,8 +25,6 @@
     
 }
 
-- (id)fetchLocalData {return nil;}
-
 - (RACSignal *)requestRemoteDataSignal {return [RACSignal empty];}
 
 - (RACSignal *)requestLoadMoreDataSignal {return [RACSignal empty];}

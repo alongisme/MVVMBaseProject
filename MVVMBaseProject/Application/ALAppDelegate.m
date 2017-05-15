@@ -30,7 +30,8 @@
     [ALHttpConfig setALConfigEnv:DebugEnv];
     //配置监听网络状态
     [self configureNetworkStatus];
-
+    //配置数据库
+    [self configureJRDBManager];
     return YES;
 }
 
@@ -58,12 +59,13 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [[JRDBMgr shareInstance] close];
 }
 
 #pragma mark - RootViewController
 - (void)configureRootViewController {
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    
+    self.window.backgroundColor = [UIColor whiteColor];
     self.services = [[ALViewModelServicesImpl alloc]init];
     self.navigationControllerStack = [[ALNavigationControllerStack alloc]initWithServices:self.services];
     ALTabBarViewModel *tabbarViewModel = [[ALTabBarViewModel alloc]initWithServices:self.services params:nil];
@@ -83,5 +85,17 @@
 #pragma mark - ConfigureNavigationBarAppearance
 - (void)configureNavigationBarAppearance {
     
+}
+
+- (void)configureJRDBManager {
+    [[JRDBMgr shareInstance] setDefaultDatabasePath:[@"/Users/along/Desktop/" stringByAppendingPathComponent:JRDB_DataBasePath]];
+    //    [[JRDBMgr shareInstance] setDefaultDatabasePath:[[ALFileManager dirCache] stringByAppendingPathComponent:JRDB_DataBasePath]];
+    [[JRDBMgr shareInstance] registerClazzes:@[
+                                               NSClassFromString(@"OneModel")
+                                               ]];
+#if DEBUG
+    [JRDBMgr shareInstance].debugMode = YES;
+#endif
+
 }
 @end

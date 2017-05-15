@@ -7,7 +7,8 @@
 //
 
 #import "ALBaseViewModel.h"
+#import "ALScrollViewModel.h"
 
-@interface ThreeViewModel : ALBaseViewModel
+@interface ThreeViewModel : ALScrollViewModel
 
 @end

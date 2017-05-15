@@ -11,8 +11,6 @@
 @interface ALViewRouter : NSObject <NSCopying>
 
 + (instancetype)sharedInstance;
-
-
 /**
  viewModel 映射 viewController
 
