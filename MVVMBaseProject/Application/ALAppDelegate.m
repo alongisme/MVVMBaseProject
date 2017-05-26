@@ -12,6 +12,9 @@
 #import "ALTabBarViewModel.h"
 #import "ALTabBarController.h"
 #import "ALViewModelServicesImpl.h"
+#import "ALNavigationController.h"
+#import "ALLoginViewModel.h"
+#import "ALLoginViewController.h"
 #import <AFNetworkActivityIndicatorManager.h>
 
 @interface ALAppDelegate ()
@@ -32,6 +35,8 @@
     [self configureNetworkStatus];
     //配置数据库
     [self configureJRDBManager];
+    //IQKeyboardManager
+    [self configureIQKeyboardManager];
     return YES;
 }
 
@@ -67,10 +72,17 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     self.services = [[ALViewModelServicesImpl alloc]init];
+    
     self.navigationControllerStack = [[ALNavigationControllerStack alloc]initWithServices:self.services];
     ALTabBarViewModel *tabbarViewModel = [[ALTabBarViewModel alloc]initWithServices:self.services params:nil];
     ALTabBarController *tabbarC = [[ALTabBarController alloc]initWithViewModel:tabbarViewModel];
-    self.window.rootViewController = tabbarC;
+    
+    ALLoginViewModel *loginViewModel = [[ALLoginViewModel alloc] initWithServices:self.services params:nil];
+    ALLoginViewController *loginVC = [[ALLoginViewController alloc] initWithViewModel:loginViewModel];
+    
+    ALNavigationController *navigationC = [[ALNavigationController alloc] initWithRootViewController:tabbarC];
+    self.navigationControllerStack.currentController = navigationC;
+    self.window.rootViewController = navigationC;//tabbarC;
     
     [self.window makeKeyAndVisible];
 }
@@ -97,5 +109,10 @@
     [JRDBMgr shareInstance].debugMode = YES;
 #endif
 
+}
+
+#pragma mark - ConfigureIQKeyboardManager
+- (void)configureIQKeyboardManager {
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
 }
 @end

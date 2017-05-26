@@ -36,6 +36,6 @@
 }
 
 - (void)configureCell:(TwoTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(TwoViewModel *)viewModel {
-    [cell bindViewModel:viewModel];
+    [cell BindModel:viewModel];
 }
 @end

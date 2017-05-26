@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OneCollectionViewCell : UICollectionViewCell <ALBindViewModel>
+@interface OneCollectionViewCell : UICollectionViewCell 
 
 @end

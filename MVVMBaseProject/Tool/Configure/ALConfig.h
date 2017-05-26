@@ -17,7 +17,7 @@
 #endif
 
 //AppDelegate
-#define ALAPP ((ALAppDelegate *)[UIApplication sharedApplication].delegate)
+#define AL_MyAppDelegate ((ALAppDelegate *)[UIApplication sharedApplication].delegate)
 
 //KeyWindow
 #define ALKeyWindow [UIApplication sharedApplication].keyWindow

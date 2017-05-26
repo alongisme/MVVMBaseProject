@@ -16,7 +16,7 @@
 
 @implementation TwoTableViewCell
 
-- (void)bindViewModel:(TwoModel *)viewModel {
+- (void)BindModel:(TwoModel *)viewModel {
     [self.iconIV sd_setImageWithURL:[NSURL URLWithString:viewModel.chapterImage]];
     self.titleLab.text = viewModel.chapterName;
 }

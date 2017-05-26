@@ -71,9 +71,8 @@
 }
 
 - (RACSignal *)requestRemoteDataSignal {
-    return [[self.services.networkService requestDataWithUrl:@"/chapter/home" params:@{}] map:^id(NSDictionary *dataSource) {
-        NSDictionary *dataDic = [dataSource jk_dictionaryForKey:@"data"];
-        NSArray *chaptersArr = [dataDic jk_arrayForKey:@"chapters"];
+    return [[self.services.networkService requestDataWithUrl:@"/testData" params:@{}] map:^id(NSDictionary *dataSource) {
+        NSArray *chaptersArr = [dataSource jk_arrayForKey:@"data"];
         return [[chaptersArr.rac_sequence map:^id(id value) {
             ThreeModel *model = [ThreeModel mj_objectWithKeyValues:value];
             return model;

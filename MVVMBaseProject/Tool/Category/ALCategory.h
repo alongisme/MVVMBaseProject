@@ -18,12 +18,12 @@
 #import "NSDictionary+JKSafeAccess.h"
 #import "UIView+ALFrame.h"
 #import "UIImage+ALColor.h"
-#import "UIColor+JKGradient.h"
 #import "NSObject+ALUserDefault.h"
 #import "UIButton+ALCountDown.h"
 #import "UIFont+DeviceSize.h"
 #import "UIImage+ResetSize.h"
 #import "UIView+ALBindModel.m"
 #import "NSObject+IsVaild.h"
+#import "NSDictionary+NetParams.h"
 
 #endif /* ALCategory_h */

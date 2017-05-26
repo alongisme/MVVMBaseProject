@@ -39,9 +39,8 @@
 }
 
 - (RACSignal *)requestRemoteDataSignal {
-    return [[self.services.networkService requestDataWithUrl:@"/chapter/home" params:@{}] map:^id(NSDictionary *dataSource) {
-        NSDictionary *dataDic = dataSource[@"data"];
-        NSArray *chaptersArr = dataDic[@"chapters"];
+    return [[self.services.networkService requestDataWithUrl:@"/testData" params:@{}] map:^id(NSDictionary *dataSource) {
+        NSArray *chaptersArr = [dataSource jk_arrayForKey:@"data"];
         return [[chaptersArr.rac_sequence map:^id(id value) {
             return [TwoModel mj_objectWithKeyValues:value];
         }] array];
@@ -49,9 +48,8 @@
 }
 
 - (RACSignal *)requestLoadMoreDataSignal {
-    return [[self.services.networkService requestDataWithUrl:@"/chapter/home" params:@{@"nextPage":@(self.nextPage)}] map:^id(NSDictionary *dataSource) {
-        NSDictionary *dataDic = dataSource[@"data"];
-        NSArray *chaptersArr = dataDic[@"chapters"];
+    return [[self.services.networkService requestDataWithUrl:@"/testData" params:@{@"nextPage":@(self.nextPage)}] map:^id(NSDictionary *dataSource) {
+        NSArray *chaptersArr = [dataSource jk_arrayForKey:@"data"];
         return [[chaptersArr.rac_sequence map:^id(id value) {
             return [TwoModel mj_objectWithKeyValues:value];
         }] array];

@@ -10,5 +10,4 @@
 
 @interface ALTabBarController : ALBaseViewController <UITabBarControllerDelegate>
 @property (nonatomic, strong) UITabBarController *tabBarController;
-
 @end

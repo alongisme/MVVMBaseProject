@@ -36,6 +36,7 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - SSKeychain (1.4.1)
 
 DEPENDENCIES:
   - AFNetworking
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - Reachability
   - ReactiveCocoa (~> 2.5.0)
   - SDWebImage
+  - SSKeychain
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -63,7 +65,8 @@ SPEC CHECKSUMS:
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
 
-PODFILE CHECKSUM: 29ed3792c1c05aafc8484c5af2c788962d7837c6
+PODFILE CHECKSUM: 9ca955c8b04366997aca9a347705ff2a534d77cb
 
 COCOAPODS: 1.1.1

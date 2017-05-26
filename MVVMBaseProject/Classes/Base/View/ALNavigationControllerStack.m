@@ -25,6 +25,14 @@
     return self;
 }
 
+- (UINavigationController *)currentController {
+#if DEBUG
+    if(!_currentController)
+        NSLog(@"current navigationController : nil");
+#endif
+    return _currentController;
+}
+
 //bindNavigationPushAction
 - (void)registerNavigationHooks {
     @weakify(self);
@@ -80,7 +88,7 @@
             self.currentController = (UINavigationController *)baseViewController;
         }
         
-        ALAPP.window.rootViewController = baseViewController;
+        AL_MyAppDelegate.window.rootViewController = baseViewController;
     }];
 }
 @end

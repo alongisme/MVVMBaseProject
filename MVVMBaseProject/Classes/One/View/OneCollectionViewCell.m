@@ -16,7 +16,7 @@
 
 @implementation OneCollectionViewCell
 
-- (void)bindViewModel:(OneModel *)viewModel {
+- (void)BindModel:(OneModel *)viewModel {
     [self.iconIV sd_setImageWithURL:[NSURL URLWithString:viewModel.chapterImage]];
     self.titleLab.text = viewModel.chapterName;
 }

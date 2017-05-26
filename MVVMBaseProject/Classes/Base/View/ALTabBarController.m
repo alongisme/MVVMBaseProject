@@ -16,6 +16,7 @@
 
 @interface ALTabBarController ()
 @property (nonatomic, strong) ALTabBarViewModel *viewModel;
+@property (nonatomic, strong) NSArray *subViewControllers;
 @end
 
 @implementation ALTabBarController
@@ -25,64 +26,93 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.tabBar.tintColor = [UIColor redColor];
-    [self addChildViewController:self.tabBarController];
-    [self.view addSubview:self.tabBarController.view];
     
-    ALNavigationController *navOne = ({
-        OneViewController *oneVC = [[OneViewController alloc] initWithViewModel:self.viewModel.oneViewModel];
-
-        UIImage *image = [[UIImage imageNamed:@"one"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *selectedImage = [[UIImage imageNamed:@"one_sel"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        
-        oneVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"One" image:[UIImage reSizeImage:image toSize:CGSizeMake(25, 25)] selectedImage:[UIImage reSizeImage:selectedImage toSize:CGSizeMake(25, 25)]];
-
-        [[ALNavigationController alloc]initWithRootViewController:oneVC];
-    });
+    self.tabBarController.viewControllers = self.subViewControllers;
     
-    ALNavigationController *navTwo = ({
-        TwoViewController *twoVC = [[TwoViewController alloc] initWithViewModel:self.viewModel.twoViewModel];
-        
-        UIImage *image = [[UIImage imageNamed:@"two"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *selectedImage = [[UIImage imageNamed:@"two_sel"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        
-        twoVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Two" image:[UIImage reSizeImage:image toSize:CGSizeMake(25, 25)] selectedImage:[UIImage reSizeImage:selectedImage toSize:CGSizeMake(25, 25)]];
-        
-        [[ALNavigationController alloc]initWithRootViewController:twoVC];
-    });
-    
-    ALNavigationController *navThree = ({
-        ThreeViewController *threeVC = [[ThreeViewController alloc] initWithViewModel:self.viewModel.threeViewModel];
-        
-        UIImage *image = [[UIImage imageNamed:@"three"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *selectedImage = [[UIImage imageNamed:@"three_sel"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        
-        threeVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Three" image:[UIImage reSizeImage:image toSize:CGSizeMake(25, 25)] selectedImage:[UIImage reSizeImage:selectedImage toSize:CGSizeMake(25, 25)]];
-        
-        [[ALNavigationController alloc]initWithRootViewController:threeVC];
-    });
-    
-    ALNavigationController *navFour = ({
-        FourViewController *fourVC = [[FourViewController alloc]initWithViewModel:self.viewModel.fourViewModel];
-
-        UIImage *image = [[UIImage imageNamed:@"four"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        UIImage *selectedImage = [[UIImage imageNamed:@"four_sel"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        
-        fourVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"Four" image:[UIImage reSizeImage:image toSize:CGSizeMake(25, 25)] selectedImage:[UIImage reSizeImage:selectedImage toSize:CGSizeMake(25, 25)]];
-        
-        [[ALNavigationController alloc]initWithRootViewController:fourVC];
-    });
-    
-    self.tabBarController.viewControllers = @[navOne,navTwo,navThree,navFour];
-    
-    ALAPP.navigationControllerStack.currentController = navOne;
+    AL_MyAppDelegate.navigationControllerStack.currentController = [_subViewControllers firstObject];
     
     [[self rac_signalForSelector:@selector(tabBarController:didSelectViewController:) fromProtocol:@protocol(UITabBarControllerDelegate)] subscribeNext:^(RACTuple *tuple) {
-        ALAPP.navigationControllerStack.currentController = tuple.second;
+        AL_MyAppDelegate.navigationControllerStack.currentController = tuple.second;
     }];
     
-    self.tabBarController.delegate = self;
 }
 
+- (NSArray *)tabBarItemOptionDictionary {
+    return @[
+             @{
+                 AL_tabBarTitle : @"One",
+                 AL_tabBarImage : @"one",
+                 AL_tabBarSelectedImage : @"one_sel",
+                 AL_tabBarImageSize : [NSValue valueWithCGSize:CGSizeMake(25, 25)]
+                 },
+             @{
+                 AL_tabBarTitle : @"Two",
+                 AL_tabBarImage : @"two",
+                 AL_tabBarSelectedImage : @"two_sel",
+                 AL_tabBarImageSize : [NSValue valueWithCGSize:CGSizeMake(25, 25)]
+                 },
+             @{
+                 AL_tabBarTitle : @"Three",
+                 AL_tabBarImage : @"three",
+                 AL_tabBarSelectedImage : @"three_sel",
+                 AL_tabBarImageSize : [NSValue valueWithCGSize:CGSizeMake(25, 25)]
+                 },
+             @{
+                 AL_tabBarTitle : @"Four",
+                 AL_tabBarImage : @"four",
+                 AL_tabBarSelectedImage : @"four_sel",
+                 AL_tabBarImageSize : [NSValue valueWithCGSize:CGSizeMake(25, 25)]
+                 },
+             ];
+}
+
+- (UITabBarItem *)getTabBarItemWithIndex:(NSUInteger)index {
+    UIImage *image = [[UIImage imageNamed:[self tabBarItemOptionDictionary][index][AL_tabBarImage]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *selectedImage = [[UIImage imageNamed:[self tabBarItemOptionDictionary][index][AL_tabBarSelectedImage]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    return [[UITabBarItem alloc]initWithTitle:[self tabBarItemOptionDictionary][index][AL_tabBarTitle] image:[UIImage reSizeImage:image toSize:[[self tabBarItemOptionDictionary][index][AL_tabBarImageSize] CGSizeValue]] selectedImage:[UIImage reSizeImage:selectedImage toSize:[[self tabBarItemOptionDictionary][index][AL_tabBarImageSize] CGSizeValue]]];
+}
+
+- (NSArray *)subViewControllers {
+    if(!_subViewControllers) {
+        
+        ALNavigationController *navOne = ({
+            OneViewController *oneVC = [[OneViewController alloc] initWithViewModel:self.viewModel.oneViewModel];
+            oneVC.tabBarItem = [self getTabBarItemWithIndex:0];
+            [[ALNavigationController alloc]initWithRootViewController:oneVC];
+        });
+        
+        ALNavigationController *navTwo = ({
+            TwoViewController *twoVC = [[TwoViewController alloc] initWithViewModel:self.viewModel.twoViewModel];
+            twoVC.tabBarItem = [self getTabBarItemWithIndex:1];
+            [[ALNavigationController alloc]initWithRootViewController:twoVC];
+        });
+        
+        ALNavigationController *navThree = ({
+            ThreeViewController *threeVC = [[ThreeViewController alloc] initWithViewModel:self.viewModel.threeViewModel];
+            threeVC.tabBarItem = [self getTabBarItemWithIndex:2];
+            [[ALNavigationController alloc]initWithRootViewController:threeVC];
+        });
+        
+        ALNavigationController *navFour = ({
+            FourViewController *fourVC = [[FourViewController alloc]initWithViewModel:self.viewModel.fourViewModel];
+            fourVC.tabBarItem = [self getTabBarItemWithIndex:3];
+            [[ALNavigationController alloc]initWithRootViewController:fourVC];
+        });
+        
+        _subViewControllers = @[navOne,navTwo,navThree,navFour];
+    }
+    return _subViewControllers;
+}
+
+- (UITabBarController *)tabBarController {
+    if(!_tabBarController) {
+        _tabBarController = [[UITabBarController alloc] init];
+        _tabBarController.delegate = self;
+        [self addChildViewController:_tabBarController];
+        [self.view addSubview:_tabBarController.view];
+    }
+    return _tabBarController;
+}
 @end

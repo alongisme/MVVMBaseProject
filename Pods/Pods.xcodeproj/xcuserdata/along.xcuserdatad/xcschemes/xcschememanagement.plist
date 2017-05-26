@@ -79,6 +79,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SSKeychain.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -92,22 +97,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>20E858BD1CDFA36FF56B81493246146D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3E78D320F4A68A2A9FCC66A561E02FEE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>5437890023F30CA85DFCA260CA914D48</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>5B6B5939CFED81BEDD0D3C3250080436</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>77030468CEC9CE2E2DBAF663D0960B5B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>81022E2A8DE506A25C492AA0C056E449</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -142,17 +147,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D45A1FE11891C3A22262DF8796F53BCD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D4B335D009B8B53624155BFE7F3BB085</key>
+		<key>CA653E68B83970F6067777EF2A38BFD9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E72EAE57889D4921BE6AB0FA9C9E7BC3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EEC05135872130EC7FBE0671CFD19542</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F97B76E6E55607B385657F778762B81C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

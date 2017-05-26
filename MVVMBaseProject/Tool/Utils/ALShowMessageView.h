@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface ALShowMessageView : NSObject
+
+/**
+ 显示
+ */
++ (void)show;
 /**
  展示错误信息
 

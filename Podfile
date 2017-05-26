@@ -16,6 +16,7 @@ pod "AFNetworking"
 pod 'MJExtension'
 pod 'DZNEmptyDataSet'
 pod 'JRDB'
+pod 'SSKeychain'
 
   # Pods for MVVMBaseProject
 

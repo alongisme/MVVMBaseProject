@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TwoTableViewCell : UITableViewCell <ALBindViewModel>
+@interface TwoTableViewCell : UITableViewCell
 
 @end

@@ -12,8 +12,14 @@
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <ReactiveCocoa.h>
 #import <JRDB.h>
+#import <Masonry.h>
+#import <SSKeychain.h>
+#import <MJExtension.h>
+#import <ReactiveCocoa.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <IQKeyboardManager.h>
+
 #import "ALBaseViewModel.h"
 #import "ALBaseViewController.h"
 #import "ALTableViewController.h"
@@ -21,16 +27,13 @@
 #import "ALCollectionViewController.h"
 #import "ALCollectionViewModel.h"
 
-#import <Masonry.h>
-#import <SDWebImage/UIImageView+WebCache.h>
 #import "ALConfig.h"
+#import "ALConst.h"
 #import "ALAppDelegate.h"
-#import "ALBindViewModel.h"
 #import "ALShowMessageView.h"
-#import <MJExtension.h>
 #import "ALFileManager.h"
-
 #import "ALCategory.h"
+#import "RACCommonTools.h"
 #endif
 
 

@@ -34,7 +34,7 @@
 }
 
 - (void)configureCell:(OneCollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withObject:(OneViewModel *)object {
-    [cell bindViewModel:object];
+    [cell BindModel:object];
 }
 
 - (NSDictionary *)UICollectionViewDelegateFlowLayoutOption {
