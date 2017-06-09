@@ -98,7 +98,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.viewModel.dataSource[section] count];
+    id itemArray = self.viewModel.dataSource[section];
+    if(![itemArray isVaild])
+        return 0;
+    NSParameterAssert([itemArray isKindOfClass:[NSArray class]]);
+    return [(NSArray *)itemArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

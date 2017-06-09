@@ -9,7 +9,7 @@
 #import "UIButton+ALCountDown.h"
 
 @implementation UIButton (ALCountDown)
--(void)AL_startTime:(NSInteger )timeout title:(NSString *)tittle waitTittle:(NSString *)waitTittle{
+- (void)AL_startTime:(NSInteger )timeout title:(NSString *)tittle waitTittle:(NSString *)waitTittle{
     __block NSInteger timeOut=timeout; //倒计时时间
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
@@ -19,20 +19,18 @@
             dispatch_source_cancel(_timer);
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置界面的按钮显示 根据自己需求设置
-                [self setTitle:tittle forState:UIControlStateNormal];
                 self.userInteractionEnabled = YES;
                 [self setSelected:NO];
+                [self setTitle:tittle forState:UIControlStateNormal];
             });
         }else{
             dispatch_async(dispatch_get_main_queue(), ^{
+                //设置界面的按钮显示 根据自己需求设置
                 [self setSelected:YES];
                 int seconds = timeOut % 60;
                 NSString *strTime = [NSString stringWithFormat:@"%.2d", seconds];
-                //设置界面的按钮显示 根据自己需求设置
-//                NSLog(@"____%@",strTime);
-                [self setTitle:[NSString stringWithFormat:@"%@(%@)",waitTittle,strTime] forState:UIControlStateNormal];
                 self.userInteractionEnabled = NO;
-                
+                [self setTitle:[NSString stringWithFormat:@"%@(%@)",waitTittle,strTime] forState:UIControlStateNormal];
             });
             timeOut--;
             

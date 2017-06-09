@@ -17,8 +17,8 @@
 #import <SSKeychain.h>
 #import <MJExtension.h>
 #import <ReactiveCocoa.h>
-#import <SDWebImage/UIImageView+WebCache.h>
 #import <IQKeyboardManager.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #import "ALBaseViewModel.h"
 #import "ALBaseViewController.h"
@@ -30,7 +30,6 @@
 #import "ALConfig.h"
 #import "ALConst.h"
 #import "ALAppDelegate.h"
-#import "ALShowMessageView.h"
 #import "ALFileManager.h"
 #import "ALCategory.h"
 #import "RACCommonTools.h"

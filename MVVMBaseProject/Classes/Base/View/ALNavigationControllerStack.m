@@ -7,7 +7,7 @@
 //
 
 #import "ALNavigationControllerStack.h"
-#import "ALTabBarController.h"
+#import "ALTabBarViewController.h"
 #import "ALViewRouter.h"
 
 @interface ALNavigationControllerStack ()
@@ -83,7 +83,7 @@
         if([baseViewController isKindOfClass:[UINavigationController class]])
             self.currentController = (UINavigationController *)baseViewController;
         
-        if(![baseViewController isKindOfClass:[UINavigationController class]] && ![baseViewController isKindOfClass:[ALTabBarController class]]) {
+        if(![baseViewController isKindOfClass:[UINavigationController class]] && ![baseViewController isKindOfClass:[ALTabBarViewController class]]) {
             baseViewController = [[UINavigationController alloc] initWithRootViewController:baseViewController];
             self.currentController = (UINavigationController *)baseViewController;
         }

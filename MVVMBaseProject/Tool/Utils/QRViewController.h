@@ -23,6 +23,5 @@ typedef void(^DoctorTidBlock)(NSString *);
 
 @property (strong, nonatomic)AVCaptureVideoPreviewLayer *preview;
 
-
 @property (copy, nonatomic)DoctorTidBlock block;
 @end

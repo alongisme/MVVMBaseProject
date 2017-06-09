@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *sePassword;
 
+@property (nonatomic, strong) RACCommand *getCodeCommand;
 @property (nonatomic, strong) RACSignal *registEnable;
 @property (nonatomic, strong) RACCommand *registCommand;
 @end

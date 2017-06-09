@@ -37,5 +37,18 @@
 //tabbar默认高度
 #define ALTabBarHeight 49
 
+//用户信息
+#define UserDefult_UserInfoKey @"UserDefult_UserInfoKey"
 
+//----网络接口Url
+//用户登录
+#define Request_UserLoginUrl @"/m/consumer/login"
+//获取验证
+#define Request_UserGetCodeUrl @"/m/consumer/getRegistCode/"
+//用户注册
+#define Request_UserRegistUrl @"/m/consumer/regist"
+//用户忘记密码
+#define Request_UserForgotPwdUrl @"/m/consumer/resetPassword/"
+//用户修改密码
+#define Request_UserUpdatePwdUrl @"/m/consumer/updatePassword"
 #endif /* ALConfig_h */

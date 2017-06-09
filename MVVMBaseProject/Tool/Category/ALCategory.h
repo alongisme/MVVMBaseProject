@@ -13,9 +13,11 @@
 #import "NSDate+JKUtilities.h"
 #import "UIDevice+YYAdd.h"
 #import "NSString+JKSize.h"
+#import "NSString+ALCheck.h"
 #import "UIColor+JKHEX.h"
 #import "NSArray+JKSafeAccess.h"
 #import "NSDictionary+JKSafeAccess.h"
+#import "UIView+HUD.h"
 #import "UIView+ALFrame.h"
 #import "UIImage+ALColor.h"
 #import "NSObject+ALUserDefault.h"
@@ -24,6 +26,5 @@
 #import "UIImage+ResetSize.h"
 #import "UIView+ALBindModel.m"
 #import "NSObject+IsVaild.h"
-#import "NSDictionary+NetParams.h"
 
 #endif /* ALCategory_h */

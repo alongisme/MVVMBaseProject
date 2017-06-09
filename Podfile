@@ -9,7 +9,6 @@ pod 'ReactiveCocoa', '~> 2.5.0’
 pod 'Reachability'
 pod 'MJRefresh'
 pod 'IQKeyboardManager'
-pod 'MMProgressHUD'
 pod 'SDWebImage'
 pod 'Masonry'
 pod "AFNetworking"
@@ -17,6 +16,7 @@ pod 'MJExtension'
 pod 'DZNEmptyDataSet'
 pod 'JRDB'
 pod 'SSKeychain'
+pod 'MBProgressHUD'
 
   # Pods for MVVMBaseProject
 

@@ -10,7 +10,7 @@
 #import "ALNetworkConnect.h"
 #import "ALHttpConfig.h"
 #import "ALTabBarViewModel.h"
-#import "ALTabBarController.h"
+#import "ALTabBarViewController.h"
 #import "ALViewModelServicesImpl.h"
 #import "ALNavigationController.h"
 #import "ALLoginViewModel.h"
@@ -37,6 +37,8 @@
     [self configureJRDBManager];
     //IQKeyboardManager
     [self configureIQKeyboardManager];
+    //init BmodSDK
+    [self configureBmodSDK];
     return YES;
 }
 
@@ -73,16 +75,18 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.services = [[ALViewModelServicesImpl alloc]init];
     
-    self.navigationControllerStack = [[ALNavigationControllerStack alloc]initWithServices:self.services];
-    ALTabBarViewModel *tabbarViewModel = [[ALTabBarViewModel alloc]initWithServices:self.services params:nil];
-    ALTabBarController *tabbarC = [[ALTabBarController alloc]initWithViewModel:tabbarViewModel];
+    self.navigationControllerStack = [[ALNavigationControllerStack alloc] initWithServices:self.services];
+    ALTabBarViewModel *tabbarViewModel = [[ALTabBarViewModel alloc] initWithServices:self.services params:nil];
+    ALTabBarViewController *tabbarC = [[ALTabBarViewController alloc] initWithViewModel:tabbarViewModel];
     
     ALLoginViewModel *loginViewModel = [[ALLoginViewModel alloc] initWithServices:self.services params:nil];
-    ALLoginViewController *loginVC = [[ALLoginViewController alloc] initWithViewModel:loginViewModel];
+//    ALLoginViewController *loginVC = [[ALLoginViewController alloc] initWithViewModel:loginViewModel];
     
-    ALNavigationController *navigationC = [[ALNavigationController alloc] initWithRootViewController:tabbarC];
-    self.navigationControllerStack.currentController = navigationC;
-    self.window.rootViewController = navigationC;//tabbarC;
+//    ALNavigationController *navigationC = [[ALNavigationController alloc] initWithRootViewController:loginVC];
+//    self.navigationControllerStack.currentController = navigationC;
+//    self.window.rootViewController = navigationC;//tabbarC;
+    
+    [self.services resetRootViewModel:loginViewModel];
     
     [self.window makeKeyAndVisible];
 }
@@ -114,5 +118,10 @@
 #pragma mark - ConfigureIQKeyboardManager
 - (void)configureIQKeyboardManager {
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+}
+
+#pragma mark - ConfigureBmodSDK
+- (void)configureBmodSDK {
+//    [Bmob registerWithAppKey:@"d00cb9354ebe7ed95eecd6abec38b846"];
 }
 @end

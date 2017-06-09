@@ -7,6 +7,7 @@
 //
 
 #import "ALBaseViewController.h"
+#import <MBProgressHUD.h>
 
 @interface ALBaseViewController ()
 
@@ -37,6 +38,16 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.extendedLayoutIncludesOpaqueBars = YES;
+    
+    @weakify(self);
+    [self.viewModel.errors subscribeNext:^(NSError *error) {
+        @strongify(self);
+        if(error) {
+            NSDictionary *errorInfo = error.userInfo;
+            NSString *message = [errorInfo jk_stringForKey:@"message"];
+            [self.view showHudInWindowError:message];
+        }
+    }];
 }
 
 - (void)bindViewModel {
@@ -54,4 +65,5 @@
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
+
 @end

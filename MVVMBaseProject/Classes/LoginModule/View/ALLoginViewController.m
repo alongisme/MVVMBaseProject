@@ -67,26 +67,39 @@
     RAC(self.loginBtn,enabled) = self.viewModel.loginEnableSignal;
     
     @weakify(self);
-    [[self.loginBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        @strongify(self);
-        NSLog(@"login action");
-        [self.viewModel.loginCommand execute:@1];
-    }];
+    {
+        [[self.loginBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            [self.viewModel.loginCommand execute:nil];
+        }];
+
+        [[self.viewModel.loginCommand.executing doNext:^(id x) {
+            @strongify(self);
+            [self.view endEditing:YES];
+        }] subscribeNext:^(NSNumber *executing) {
+            @strongify(self);
+            executing.boolValue?[self.view showHud]:[self.view hideHud];
+        }];
+    }
     
-    [[self.forgetBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        @strongify(self);
-        ALForgetPasswordViewModel *forgetPasswordViewModel = [[ALForgetPasswordViewModel alloc] initWithServices:self.viewModel.services params:@{@"title":@"忘记密码"}];
-        [self.viewModel.services pushViewModel:forgetPasswordViewModel animated:YES];
-    }];
+    {
+        [[self.forgetBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            ALForgetPasswordViewModel *forgetPasswordViewModel = [[ALForgetPasswordViewModel alloc] initWithServices:self.viewModel.services params:@{@"title":@"忘记密码"}];
+            [self.viewModel.services pushViewModel:forgetPasswordViewModel animated:YES];
+        }];
+    }
     
-    [[self.registBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        @strongify(self);
-        ALRegistViewModel *registViewModel = [[ALRegistViewModel alloc] initWithServices:self.viewModel.services params:@{@"title":@"注册"}];
-        [self.viewModel.services pushViewModel:registViewModel animated:YES];
-    }];
+    {
+        [[self.registBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+            @strongify(self);
+            ALRegistViewModel *registViewModel = [[ALRegistViewModel alloc] initWithServices:self.viewModel.services params:@{@"title":@"注册用户"}];
+            [self.viewModel.services pushViewModel:registViewModel animated:YES];
+        }];
+    }
 }
 
-#pragma mark lazy load
+#pragma mark lazy load subviews
 - (UITextField *)accountTF {
     if(!_accountTF) {
         _accountTF = [UITextField new];

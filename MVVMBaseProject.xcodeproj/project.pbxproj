@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		513BDABF2074EEFFFE4284E6 /* libPods-MVVMBaseProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A70C326F7C0C08FEF6A0EFF5 /* libPods-MVVMBaseProjectTests.a */; };
 		7FC837364AAAA6805D4C0DF7 /* libPods-MVVMBaseProjectUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E98DD005318C6E3E76714EA7 /* libPods-MVVMBaseProjectUITests.a */; };
-		BF44CA2A1EA0848500EA4054 /* ALShowMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF44CA291EA0848500EA4054 /* ALShowMessageView.m */; };
+		BF10DBAE1EEA796400F8ED10 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BF10DBAD1EEA796400F8ED10 /* MBProgressHUD.bundle */; };
+		BF10DBB11EEA7A1900F8ED10 /* UIView+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BF10DBB01EEA7A1900F8ED10 /* UIView+HUD.m */; };
+		BF50ED051EDBB9BE00E417BA /* ALAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF50ED041EDBB9BE00E417BA /* ALAgreementViewController.m */; };
+		BF50ED0C1EDE8F3D00E417BA /* NSString+ALCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = BF50ED0B1EDE8F3D00E417BA /* NSString+ALCheck.m */; };
+		BF50ED0E1EDE933700E417BA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF50ED0D1EDE933700E417BA /* LaunchScreen.xib */; };
 		BF6667441ECAE5FB009D7CE6 /* ALUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6667431ECAE5FB009D7CE6 /* ALUserModel.m */; };
-		BF66674C1ECAEECC009D7CE6 /* NSDictionary+NetParams.m in Sources */ = {isa = PBXBuildFile; fileRef = BF66674B1ECAEECC009D7CE6 /* NSDictionary+NetParams.m */; };
 		BF8731D11EA48B5B0001270A /* UIImage+ResetSize.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8731D01EA48B5B0001270A /* UIImage+ResetSize.m */; };
 		BF8731D91EA49AF90001270A /* ALCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8731D81EA49AF90001270A /* ALCollectionViewController.m */; };
 		BF8731DC1EA49B100001270A /* ALCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8731DB1EA49B100001270A /* ALCollectionViewModel.m */; };
@@ -45,7 +48,7 @@
 		BF8976091E9E1B4D00592D60 /* FourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8976081E9E1B4D00592D60 /* FourViewController.m */; };
 		BF89760C1E9E1B6200592D60 /* OneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF89760B1E9E1B6200592D60 /* OneViewController.m */; };
 		BF8976101E9E1B8700592D60 /* ALBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF89760F1E9E1B8700592D60 /* ALBaseViewController.m */; };
-		BF8976131E9E1C5600592D60 /* ALTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8976121E9E1C5600592D60 /* ALTabBarController.m */; };
+		BF8976131E9E1C5600592D60 /* ALTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8976121E9E1C5600592D60 /* ALTabBarViewController.m */; };
 		BF8976161E9E1D1500592D60 /* ALNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8976151E9E1D1500592D60 /* ALNavigationController.m */; };
 		BF8976191E9E207000592D60 /* ALTabBarViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8976181E9E207000592D60 /* ALTabBarViewModel.m */; };
 		BF8976201E9E2FDD00592D60 /* ALNavigationControllerStack.m in Sources */ = {isa = PBXBuildFile; fileRef = BF89761F1E9E2FDD00592D60 /* ALNavigationControllerStack.m */; };
@@ -115,12 +118,16 @@
 		54F19E041A2A6341C2793AF7 /* Pods-MVVMBaseProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMBaseProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMBaseProject/Pods-MVVMBaseProject.release.xcconfig"; sourceTree = "<group>"; };
 		7CCCE110F6DC642241874FF3 /* Pods-MVVMBaseProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMBaseProjectTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMBaseProjectTests/Pods-MVVMBaseProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		A70C326F7C0C08FEF6A0EFF5 /* libPods-MVVMBaseProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MVVMBaseProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF44CA281EA0848500EA4054 /* ALShowMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALShowMessageView.h; sourceTree = "<group>"; };
-		BF44CA291EA0848500EA4054 /* ALShowMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALShowMessageView.m; sourceTree = "<group>"; };
+		BF10DBAD1EEA796400F8ED10 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
+		BF10DBAF1EEA7A1900F8ED10 /* UIView+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HUD.h"; sourceTree = "<group>"; };
+		BF10DBB01EEA7A1900F8ED10 /* UIView+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HUD.m"; sourceTree = "<group>"; };
+		BF50ED031EDBB9BE00E417BA /* ALAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAgreementViewController.h; sourceTree = "<group>"; };
+		BF50ED041EDBB9BE00E417BA /* ALAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALAgreementViewController.m; sourceTree = "<group>"; };
+		BF50ED0A1EDE8F3D00E417BA /* NSString+ALCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ALCheck.h"; sourceTree = "<group>"; };
+		BF50ED0B1EDE8F3D00E417BA /* NSString+ALCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ALCheck.m"; sourceTree = "<group>"; };
+		BF50ED0D1EDE933700E417BA /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		BF6667421ECAE5FB009D7CE6 /* ALUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALUserModel.h; sourceTree = "<group>"; };
 		BF6667431ECAE5FB009D7CE6 /* ALUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALUserModel.m; sourceTree = "<group>"; };
-		BF66674A1ECAEECC009D7CE6 /* NSDictionary+NetParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+NetParams.h"; sourceTree = "<group>"; };
-		BF66674B1ECAEECC009D7CE6 /* NSDictionary+NetParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+NetParams.m"; sourceTree = "<group>"; };
 		BF8731CF1EA48B5B0001270A /* UIImage+ResetSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResetSize.h"; sourceTree = "<group>"; };
 		BF8731D01EA48B5B0001270A /* UIImage+ResetSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResetSize.m"; sourceTree = "<group>"; };
 		BF8731D71EA49AF90001270A /* ALCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALCollectionViewController.h; sourceTree = "<group>"; };
@@ -188,8 +195,8 @@
 		BF89760B1E9E1B6200592D60 /* OneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneViewController.m; sourceTree = "<group>"; };
 		BF89760E1E9E1B8700592D60 /* ALBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALBaseViewController.h; sourceTree = "<group>"; };
 		BF89760F1E9E1B8700592D60 /* ALBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALBaseViewController.m; sourceTree = "<group>"; };
-		BF8976111E9E1C5600592D60 /* ALTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALTabBarController.h; sourceTree = "<group>"; };
-		BF8976121E9E1C5600592D60 /* ALTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALTabBarController.m; sourceTree = "<group>"; };
+		BF8976111E9E1C5600592D60 /* ALTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALTabBarViewController.h; sourceTree = "<group>"; };
+		BF8976121E9E1C5600592D60 /* ALTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALTabBarViewController.m; sourceTree = "<group>"; };
 		BF8976141E9E1D1500592D60 /* ALNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALNavigationController.h; sourceTree = "<group>"; };
 		BF8976151E9E1D1500592D60 /* ALNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALNavigationController.m; sourceTree = "<group>"; };
 		BF8976171E9E207000592D60 /* ALTabBarViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALTabBarViewModel.h; sourceTree = "<group>"; };
@@ -405,8 +412,8 @@
 				BF8976151E9E1D1500592D60 /* ALNavigationController.m */,
 				BF89761E1E9E2FDD00592D60 /* ALNavigationControllerStack.h */,
 				BF89761F1E9E2FDD00592D60 /* ALNavigationControllerStack.m */,
-				BF8976111E9E1C5600592D60 /* ALTabBarController.h */,
-				BF8976121E9E1C5600592D60 /* ALTabBarController.m */,
+				BF8976111E9E1C5600592D60 /* ALTabBarViewController.h */,
+				BF8976121E9E1C5600592D60 /* ALTabBarViewController.m */,
 				BF8976291E9F57F100592D60 /* ALTableViewController.h */,
 				BF89762A1E9F57F100592D60 /* ALTableViewController.m */,
 				BF8731D71EA49AF90001270A /* ALCollectionViewController.h */,
@@ -455,9 +462,11 @@
 		BFA0E5591E9CBA8B00F4445B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BF10DBAD1EEA796400F8ED10 /* MBProgressHUD.bundle */,
 				BFA0E56A1E9CBA8B00F4445B /* Info.plist */,
 				BFA0E55A1E9CBA8B00F4445B /* main.m */,
 				BFD8EED71E9CCED300934561 /* ALBaseProject_Prefix.pch */,
+				BF50ED0D1EDE933700E417BA /* LaunchScreen.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -692,14 +701,16 @@
 				BF8731F41EA4C63F0001270A /* UIDevice+YYAdd.m */,
 				BF8731F71EA4C63F0001270A /* NSString+JKSize.h */,
 				BF8731F81EA4C63F0001270A /* NSString+JKSize.m */,
+				BF50ED0A1EDE8F3D00E417BA /* NSString+ALCheck.h */,
+				BF50ED0B1EDE8F3D00E417BA /* NSString+ALCheck.m */,
 				BF8731F91EA4C63F0001270A /* UIColor+JKHEX.h */,
 				BF8731FA1EA4C63F0001270A /* UIColor+JKHEX.m */,
 				BF8731FB1EA4C63F0001270A /* NSArray+JKSafeAccess.h */,
 				BF8731FC1EA4C63F0001270A /* NSArray+JKSafeAccess.m */,
 				BF8731FD1EA4C63F0001270A /* NSDictionary+JKSafeAccess.h */,
 				BF8731FE1EA4C63F0001270A /* NSDictionary+JKSafeAccess.m */,
-				BF66674A1ECAEECC009D7CE6 /* NSDictionary+NetParams.h */,
-				BF66674B1ECAEECC009D7CE6 /* NSDictionary+NetParams.m */,
+				BF10DBAF1EEA7A1900F8ED10 /* UIView+HUD.h */,
+				BF10DBB01EEA7A1900F8ED10 /* UIView+HUD.m */,
 				BF8732011EA4C63F0001270A /* UIView+ALFrame.h */,
 				BF8732021EA4C63F0001270A /* UIView+ALFrame.m */,
 				BF8732031EA4C63F0001270A /* UIImage+ALColor.h */,
@@ -751,8 +762,6 @@
 				BF8732251EA4CD5E0001270A /* RACCommonTools.m */,
 				BF8976261E9F160700592D60 /* ALViewRouter.h */,
 				BF8976271E9F160700592D60 /* ALViewRouter.m */,
-				BF44CA281EA0848500EA4054 /* ALShowMessageView.h */,
-				BF44CA291EA0848500EA4054 /* ALShowMessageView.m */,
 				BF8731EC1EA4C4EA0001270A /* ALAlertController.h */,
 				BF8731ED1EA4C4EA0001270A /* ALAlertController.m */,
 				BF8731E91EA4B8660001270A /* ALFileManager.h */,
@@ -793,6 +802,8 @@
 				BFDC24FF1ECA93EC001F1867 /* ALLoginViewController.m */,
 				BFDC25001ECA93EC001F1867 /* ALRegistViewController.h */,
 				BFDC25011ECA93EC001F1867 /* ALRegistViewController.m */,
+				BF50ED031EDBB9BE00E417BA /* ALAgreementViewController.h */,
+				BF50ED041EDBB9BE00E417BA /* ALAgreementViewController.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -934,6 +945,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFEB81B31EB35A4900E138A2 /* head.jpg in Resources */,
+				BF10DBAE1EEA796400F8ED10 /* MBProgressHUD.bundle in Resources */,
+				BF50ED0E1EDE933700E417BA /* LaunchScreen.xib in Resources */,
 				BFA0E5951E9CBB8600F4445B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1117,9 +1130,10 @@
 				BF8976351E9F70C800592D60 /* TwoModel.m in Sources */,
 				BF8976311E9F6BE800592D60 /* TwoTableViewCell.m in Sources */,
 				BF87322D1EA4CE7B0001270A /* QRViewController.m in Sources */,
+				BF10DBB11EEA7A1900F8ED10 /* UIView+HUD.m in Sources */,
 				BFD8EEE51E9DD42100934561 /* ALNetworkConnect.m in Sources */,
-				BF66674C1ECAEECC009D7CE6 /* NSDictionary+NetParams.m in Sources */,
 				BF8976471EA068A100592D60 /* ALNetworkServicelmpl.m in Sources */,
+				BF50ED0C1EDE8F3D00E417BA /* NSString+ALCheck.m in Sources */,
 				BFDC25041ECA93EC001F1867 /* ALLoginViewController.m in Sources */,
 				BF8731D91EA49AF90001270A /* ALCollectionViewController.m in Sources */,
 				BF8731DF1EA4A5BC0001270A /* OneModel.m in Sources */,
@@ -1143,7 +1157,6 @@
 				BF8976431EA0631300592D60 /* ALViewModelServicesImpl.m in Sources */,
 				BF8732181EA4C63F0001270A /* UIView+ALFrame.m in Sources */,
 				BF9E07F81EA757260075EB45 /* ALScrollViewModel.m in Sources */,
-				BF44CA2A1EA0848500EA4054 /* ALShowMessageView.m in Sources */,
 				BF87321B1EA4C63F0001270A /* NSObject+ALUserDefault.m in Sources */,
 				BF8732271EA4CD5E0001270A /* RACCommonTools.m in Sources */,
 				BF9E081A1EA8BE3B0075EB45 /* ThreeView.m in Sources */,
@@ -1153,7 +1166,7 @@
 				BF8975F91E9DFF1B00592D60 /* FourViewModel.m in Sources */,
 				BF9E081D1EA8BE460075EB45 /* FourView.m in Sources */,
 				BF8731D11EA48B5B0001270A /* UIImage+ResetSize.m in Sources */,
-				BF8976131E9E1C5600592D60 /* ALTabBarController.m in Sources */,
+				BF8976131E9E1C5600592D60 /* ALTabBarViewController.m in Sources */,
 				BF8975F61E9DFF1000592D60 /* ThreeViewModel.m in Sources */,
 				BFDC25031ECA93EC001F1867 /* ALForgetPasswordViewController.m in Sources */,
 				BF9E08001EA75CC90075EB45 /* ThreeModel.m in Sources */,
@@ -1161,6 +1174,7 @@
 				BF87321D1EA4C63F0001270A /* UIFont+DeviceSize.m in Sources */,
 				BF8975F31E9DFF0500592D60 /* TwoViewModel.m in Sources */,
 				BF9E080E1EA8B6C10075EB45 /* OneView.m in Sources */,
+				BF50ED051EDBB9BE00E417BA /* ALAgreementViewController.m in Sources */,
 				BF8732141EA4C63F0001270A /* UIColor+JKHEX.m in Sources */,
 				BF8732101EA4C63F0001270A /* NSDate+JKUtilities.m in Sources */,
 				BF87322A1EA4CDC30001270A /* ALImagePickerController.m in Sources */,

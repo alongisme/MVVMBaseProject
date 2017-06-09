@@ -45,6 +45,7 @@ static ALNetworkConnect *_networkConnect = nil;
     dispatch_once(&onceToken, ^{
         _sessionManager = [AFHTTPSessionManager manager];
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+        _sessionManager.responseSerializer = [AFJSONResponseSerializer serializer];
 
     });
     return _sessionManager;

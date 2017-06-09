@@ -16,11 +16,10 @@
         
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
-        if([params jk_integerForKey:ALShowHudIdentifier] == 1) 
-            [ALShowMessageView showStatusWithMessage:@"load..."];
+        NSString *requestUrl = [[ALHttpConfig getALHttpAddress] stringByAppendingPathComponent:url];
         
-        NSURLSessionTask *task = [[ALNetworkConnect sharedInstance].sessionManager POST:[[ALHttpConfig getALHttpAddress] stringByAppendingPathComponent:url] parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
+        NSURLSessionTask *task = [[ALNetworkConnect sharedInstance].sessionManager POST:requestUrl parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+
             BOOL isJosn = [NSJSONSerialization isValidJSONObject:responseObject];
             id dataSource = nil;
             
@@ -28,7 +27,7 @@
                 @try {
                     dataSource = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
                 } @catch (NSException *exception) {
-                    NSLog(@"%@,%@",exception,exception.userInfo);;
+                    NSLog(@"%@,%@",exception,exception.userInfo);
                 } @finally {
                     
                 }
@@ -48,31 +47,28 @@
                 
             }
             
-            if([params jk_integerForKey:ALLogResponseIdentifier] == 1)
-                NSLog(@"--------------------------------------------------------\nRequest:\n Url:  %@\n Params:  %@\n --------------------------------------------------------\nResponse: %@\n--------------------------------------------------------",[[ALHttpConfig getALHttpAddress] stringByAppendingPathComponent:url],params,logString);
+            NSLog(@"--------------------------------------------------------\nRequest:\n Url:  %@\n Params:  %@\n --------------------------------------------------------\nResponse: %@\n--------------------------------------------------------",[[ALHttpConfig getALHttpAddress] stringByAppendingPathComponent:url],params,logString);
             
             if([dataSource isKindOfClass:[NSDictionary class]]) {
                 dataSource = (NSDictionary *)dataSource;
                 long code = [dataSource jk_longLongForKey:@"code"];
                 
                 if(code == 1) {
-                    [ALShowMessageView dismissMessageView];
-                    [subscriber sendNext:dataSource];
+                    [subscriber sendNext:[dataSource jk_dictionaryForKey:@"object"]];
                 } else {
-                    NSError *error = [[NSError alloc] initWithDomain:url code:code userInfo:@{@"code" : @(code), @"message" : [dataSource jk_stringForKey:@"message"]}];
-                    [ALShowMessageView showErrorWithMessage:[error.userInfo jk_stringForKey:@"message"]];
+                    NSError *error = [[NSError alloc] initWithDomain:requestUrl code:code userInfo:dataSource];
                     [subscriber sendError:error];
                 }
             } else {
-                [ALShowMessageView showErrorWithMessage:@"data error!"];
+                NSError *error = [[NSError alloc] initWithDomain:requestUrl code:0 userInfo:@{@"message":@"data error"}];
+                [subscriber sendError:error];
             }
-            
+
             [subscriber sendCompleted];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [ALShowMessageView dismissMessageView];
             [subscriber sendError:error];
-            if([params jk_integerForKey:ALLogResponseIdentifier] == 1)
             NSLog(@"--------------------------------------------------------\n Url:%@ \n error:\n%@",url,error);
+            [subscriber sendCompleted];
         }];
         
         return [RACDisposable disposableWithBlock:^{
