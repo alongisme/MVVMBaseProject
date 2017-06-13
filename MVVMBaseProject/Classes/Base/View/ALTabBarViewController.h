@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CYLTabBarController.h>
 
 @interface ALTabBarViewController : ALBaseViewController <UITabBarControllerDelegate>
-@property (nonatomic, strong) UITabBarController *tabBarController;
+@property (nonatomic, strong) CYLTabBarController *tabBarController;
 @end

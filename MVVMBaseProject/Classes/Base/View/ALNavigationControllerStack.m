@@ -88,6 +88,10 @@
             self.currentController = (UINavigationController *)baseViewController;
         }
         
+//        if([baseViewController isKindOfClass:[ALTabBarViewController class]]) {
+//            baseViewController = [[ALTabBarViewController alloc] init].tabBarController;
+//        }
+        
         AL_MyAppDelegate.window.rootViewController = baseViewController;
     }];
 }

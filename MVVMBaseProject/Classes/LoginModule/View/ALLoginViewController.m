@@ -66,11 +66,17 @@
     RAC(self.viewModel, password) = self.pwdTF.rac_textSignal;
     RAC(self.loginBtn,enabled) = self.viewModel.loginEnableSignal;
     
+    self.accountTF.text = @"11111111111";
+    self.pwdTF.text = @"111111";
+    
     @weakify(self);
     {
         [[self.loginBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            [self.viewModel.loginCommand execute:nil];
+            [[self.viewModel.loginCommand execute:nil] subscribeNext:^(id x) {
+                @strongify(self);
+                [self.view showHudSuccess:@"登录成功！"];
+            }];
         }];
 
         [[self.viewModel.loginCommand.executing doNext:^(id x) {

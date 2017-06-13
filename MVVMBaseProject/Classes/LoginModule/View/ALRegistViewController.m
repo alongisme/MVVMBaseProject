@@ -73,6 +73,7 @@
         make.top.equalTo(self.agreementBtn.mas_bottom).offset(30);
         make.height.trailing.leading.equalTo(self.accountTF);
     }];
+    
 }
 
 - (void)bindViewModel {
@@ -80,7 +81,7 @@
     
     RAC(self.viewModel,account) = self.accountTF.rac_textSignal;
     RAC(self.viewModel,nickName) = self.nickNameTF.rac_textSignal;
-    RAC(self.viewModel,code) = self.nickNameTF.rac_textSignal;
+    RAC(self.viewModel,code) = self.codeTF.rac_textSignal;
     RAC(self.viewModel,password) = self.passwordTF.rac_textSignal;
     RAC(self.viewModel,sePassword) = self.sePasswordTF.rac_textSignal;
     RAC(self.registBtn,enabled) = self.viewModel.registEnable;
@@ -88,11 +89,14 @@
     @weakify(self);
     [[self.getCodeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         @strongify(self);
-        if([self.accountTF.text al_checkPhoneNumber]) {
-            [self.viewModel.getCodeCommand execute:nil] ;
-        } else {
-            [self.view showHudError:@"请输入正确的手机号码！"];
-        }
+      [[self.viewModel.getCodeCommand execute:nil] subscribeNext:^(NSNumber *value) {
+          if(value.integerValue == ALErrorPhoneNumberError) {
+              [self.view showHudInWindowError:@"请输入正确的手机号码！"];
+          } else {
+              [self.view showHudInWindowSuccess:@"获取验证码成功！"];
+              [self.getCodeBtn getCodeTime];
+          }
+      }];
     }];
     
     [[self.agreementBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
@@ -103,10 +107,19 @@
     
     [[self.registBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
         @strongify(self);
-        if([self.passwordTF.text isEqualToString:self.sePasswordTF.text])
-            [self.viewModel.registCommand execute:nil];
-        else
-            [self.view showHudError:@"两次密码不一致"];
+        [[[[self.viewModel.registCommand execute:nil] filter:^BOOL(NSNumber *value) {
+            @strongify(self);
+            if(value.integerValue == ALErrorPasswordNotEquel) {
+                [self.view showHudInWindowError:@"两次密码不一致！"];
+            } else {
+                [self.view showHudInWindowError:@"注册成功！"];
+                return YES;
+            }
+            return NO;
+        }] delay:2] subscribeNext:^(id state) {
+            @strongify(self);
+                if(![state isVaild]) [self.navigationController popViewControllerAnimated:YES];
+        }];;
     }];
     
     [[[RACSignal merge:@[self.viewModel.getCodeCommand.executing,self.viewModel.registCommand.executing]] doNext:^(id x) {

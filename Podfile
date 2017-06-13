@@ -17,7 +17,7 @@ pod 'DZNEmptyDataSet'
 pod 'JRDB'
 pod 'SSKeychain'
 pod 'MBProgressHUD'
-
+pod 'CYLTabBarController’
   # Pods for MVVMBaseProject
 
   target 'MVVMBaseProjectTests' do

@@ -9,34 +9,26 @@
 #import "UIButton+ALCountDown.h"
 
 @implementation UIButton (ALCountDown)
-- (void)AL_startTime:(NSInteger )timeout title:(NSString *)tittle waitTittle:(NSString *)waitTittle{
-    __block NSInteger timeOut=timeout; //倒计时时间
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
-    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
-    dispatch_source_set_event_handler(_timer, ^{
-        if(timeOut<=0){ //倒计时结束，关闭
-            dispatch_source_cancel(_timer);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //设置界面的按钮显示 根据自己需求设置
-                self.userInteractionEnabled = YES;
-                [self setSelected:NO];
-                [self setTitle:tittle forState:UIControlStateNormal];
-            });
-        }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //设置界面的按钮显示 根据自己需求设置
-                [self setSelected:YES];
-                int seconds = timeOut % 60;
-                NSString *strTime = [NSString stringWithFormat:@"%.2d", seconds];
-                self.userInteractionEnabled = NO;
-                [self setTitle:[NSString stringWithFormat:@"%@(%@)",waitTittle,strTime] forState:UIControlStateNormal];
-            });
-            timeOut--;
-            
+
+- (void)getCodeTime {
+    @weakify(self);
+    __block NSUInteger interval = 59;
+    [[[[RACSignal interval:1 onScheduler:[RACScheduler mainThreadScheduler]] take:60] doNext:^(id x) {
+        @strongify(self);
+        if(interval >= 59) {
+            self.userInteractionEnabled = NO;
+            self.selected = YES;
         }
-    });
-    dispatch_resume(_timer);
-    
+    }] subscribeNext:^(id x) {
+        @strongify(self);
+        NSString *strTime = [NSString stringWithFormat:@"%.2ld", interval];
+        [self setTitle:[NSString stringWithFormat:@"重新获取(%@)",strTime] forState:UIControlStateNormal];
+        interval--;
+    } completed:^{
+        @strongify(self);
+        [self setTitle:[NSString stringWithFormat:@"获取验证码"] forState:UIControlStateNormal];
+        self.userInteractionEnabled = YES;
+        self.selected = NO;
+    }];
 }
 @end

@@ -81,7 +81,6 @@
 		BFBB59B01EC94A0B008248EB /* NSObject+IsVaild.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBB59AF1EC94A0B008248EB /* NSObject+IsVaild.m */; };
 		BFD8EEDA1E9CCFCC00934561 /* ALBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD8EED91E9CCFCC00934561 /* ALBaseViewModel.m */; };
 		BFD8EEE51E9DD42100934561 /* ALNetworkConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD8EEE41E9DD42100934561 /* ALNetworkConnect.m */; };
-		BFD8EEE81E9DF64100934561 /* ALHttpConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD8EEE71E9DF64100934561 /* ALHttpConfig.m */; };
 		BFDC25031ECA93EC001F1867 /* ALForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDC24FD1ECA93EC001F1867 /* ALForgetPasswordViewController.m */; };
 		BFDC25041ECA93EC001F1867 /* ALLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDC24FF1ECA93EC001F1867 /* ALLoginViewController.m */; };
 		BFDC25051ECA93EC001F1867 /* ALRegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFDC25011ECA93EC001F1867 /* ALRegistViewController.m */; };
@@ -267,8 +266,6 @@
 		BFD8EED91E9CCFCC00934561 /* ALBaseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALBaseViewModel.m; sourceTree = "<group>"; };
 		BFD8EEE31E9DD42100934561 /* ALNetworkConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALNetworkConnect.h; sourceTree = "<group>"; };
 		BFD8EEE41E9DD42100934561 /* ALNetworkConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALNetworkConnect.m; sourceTree = "<group>"; };
-		BFD8EEE61E9DF64100934561 /* ALHttpConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALHttpConfig.h; sourceTree = "<group>"; };
-		BFD8EEE71E9DF64100934561 /* ALHttpConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALHttpConfig.m; sourceTree = "<group>"; };
 		BFD8EEEC1E9DF78800934561 /* ALConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALConst.h; sourceTree = "<group>"; };
 		BFDC24CC1EC971C5001F1867 /* ALCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALCategory.h; sourceTree = "<group>"; };
 		BFDC24FC1ECA93EC001F1867 /* ALForgetPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALForgetPasswordViewController.h; sourceTree = "<group>"; };
@@ -738,8 +735,6 @@
 				BFD8EEEC1E9DF78800934561 /* ALConst.h */,
 				BFD8EEE31E9DD42100934561 /* ALNetworkConnect.h */,
 				BFD8EEE41E9DD42100934561 /* ALNetworkConnect.m */,
-				BFD8EEE61E9DF64100934561 /* ALHttpConfig.h */,
-				BFD8EEE71E9DF64100934561 /* ALHttpConfig.m */,
 			);
 			path = Configure;
 			sourceTree = "<group>";
@@ -1113,7 +1108,6 @@
 				BF8732191EA4C63F0001270A /* UIImage+ALColor.m in Sources */,
 				BF8732161EA4C63F0001270A /* NSDictionary+JKSafeAccess.m in Sources */,
 				BF8976091E9E1B4D00592D60 /* FourViewController.m in Sources */,
-				BFD8EEE81E9DF64100934561 /* ALHttpConfig.m in Sources */,
 				BF8732151EA4C63F0001270A /* NSArray+JKSafeAccess.m in Sources */,
 				BF87321C1EA4C63F0001270A /* UIButton+ALCountDown.m in Sources */,
 				BF8975F01E9DFEF800592D60 /* OneViewModel.m in Sources */,
@@ -1315,11 +1309,14 @@
 			baseConfigurationReference = 3CFBB9DFCCE2D67AB2D3CF9D /* Pods-MVVMBaseProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MVVMBaseProject/ALBaseProject_Prefix.pch";
 				INFOPLIST_FILE = MVVMBaseProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.along.xlshi.MVVMBaseProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1328,11 +1325,14 @@
 			baseConfigurationReference = 54F19E041A2A6341C2793AF7 /* Pods-MVVMBaseProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MVVMBaseProject/ALBaseProject_Prefix.pch";
 				INFOPLIST_FILE = MVVMBaseProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.along.xlshi.MVVMBaseProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

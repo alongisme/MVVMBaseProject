@@ -8,7 +8,6 @@
 
 #import "ALNetworkServicelmpl.h"
 #import <AFNetworking.h>
-#import "ALHttpConfig.h"
 
 @implementation ALNetworkServicelmpl
 
@@ -16,7 +15,7 @@
         
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
-        NSString *requestUrl = [[ALHttpConfig getALHttpAddress] stringByAppendingPathComponent:url];
+        NSString *requestUrl = [Debug_Domain stringByAppendingPathComponent:url];
         
         NSURLSessionTask *task = [[ALNetworkConnect sharedInstance].sessionManager POST:requestUrl parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
@@ -47,14 +46,14 @@
                 
             }
             
-            NSLog(@"--------------------------------------------------------\nRequest:\n Url:  %@\n Params:  %@\n --------------------------------------------------------\nResponse: %@\n--------------------------------------------------------",[[ALHttpConfig getALHttpAddress] stringByAppendingPathComponent:url],params,logString);
+            NSLog(@"--------------------------------------------------------\nRequest:\n Url:  %@\n Params:  %@\n --------------------------------------------------------\nResponse: %@\n--------------------------------------------------------",requestUrl,params,logString);
             
             if([dataSource isKindOfClass:[NSDictionary class]]) {
                 dataSource = (NSDictionary *)dataSource;
                 long code = [dataSource jk_longLongForKey:@"code"];
                 
                 if(code == 1) {
-                    [subscriber sendNext:[dataSource jk_dictionaryForKey:@"object"]];
+                    [subscriber sendNext:[dataSource jk_dictionaryForKey:@"object"]?[dataSource jk_dictionaryForKey:@"object"]:[dataSource jk_stringForKey:@"object"]];
                 } else {
                     NSError *error = [[NSError alloc] initWithDomain:requestUrl code:code userInfo:dataSource];
                     [subscriber sendError:error];

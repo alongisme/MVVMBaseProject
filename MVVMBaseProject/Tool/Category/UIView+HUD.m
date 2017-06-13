@@ -40,6 +40,9 @@ static const void *indieBandWindowHudKey = &indieBandWindowHudKey;
 }
 
 - (void)showHud {
+    if([self.hud isVaild]) {
+        [self.hud hideHud];
+    }
     self.hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
     //有导航栏
     self.hud.offset = CGPointMake(0, -64/2);
@@ -53,12 +56,17 @@ static const void *indieBandWindowHudKey = &indieBandWindowHudKey;
 }
 
 - (void)showHudInWindow {
-    self.windowHud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].windows.lastObject animated:YES];
+    if([self.windowHud isVaild]) {
+        [self.windowHud hideHud];
+    }
+    self.windowHud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
     [self.windowHud showAnimated:YES];
 }
 
 - (void)hideHudInWindow {
-    [self.windowHud hideAnimated:YES];
+    if([self.windowHud isVaild]) {
+        [self.windowHud hideAnimated:YES];
+    }
 }
 
 - (void)showHudError:(NSString *)error {
@@ -78,29 +86,26 @@ static const void *indieBandWindowHudKey = &indieBandWindowHudKey;
 }
 
 - (void)showHudError:(NSString *)error delay:(float)delay {
-    self.hud = [self showIcon:@"MBProgressHUD.bundle/error@2x.png" message:error delay:delay view:self];
+    [self showIcon:@"MBProgressHUD.bundle/error@2x.png" message:error delay:delay view:self];
 }
 
 - (void)showHudSuccess:(NSString *)success delay:(float)delay {
-   self.hud = [self showIcon:@"MBProgressHUD.bundle/success@2x.png" message:success delay:delay view:self];
+    [self showIcon:@"MBProgressHUD.bundle/success@2x.png" message:success delay:delay view:self];
 }
 
 - (void)showHudInWindowError:(NSString *)error delay:(float)delay {
-   self.windowHud = [self showIcon:@"MBProgressHUD.bundle/error@2x.png" message:error delay:delay view:[UIApplication sharedApplication].windows.lastObject];
+    [self showIcon:@"MBProgressHUD.bundle/error@2x.png" message:error delay:delay view:[UIApplication sharedApplication].keyWindow];
 }
 
 - (void)showHudInWindowSuccess:(NSString *)success delay:(float)delay {
-   self.windowHud = [self showIcon:@"MBProgressHUD.bundle/success@2x.png" message:success delay:delay view:[UIApplication sharedApplication].windows.lastObject];
+    [self showIcon:@"MBProgressHUD.bundle/success@2x.png" message:success delay:delay view:[UIApplication sharedApplication].keyWindow];
 }
 
 - (MBProgressHUD *)showIcon:(NSString *)icon message:(NSString *)message delay:(float)delay view:(UIView *)view {
     if (delay <= 0) {
         NSLog(@"delay <= 0");
         return nil;
-    }
-
-    [self hideHud];
-    
+    }    
     MBProgressHUD *Hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     //有导航拦
     Hud.offset = CGPointMake(0, -64/2);

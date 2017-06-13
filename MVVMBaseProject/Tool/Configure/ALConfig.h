@@ -28,27 +28,33 @@
 #define ALScreenHeight [UIScreen mainScreen].bounds.size.height
 
 //设置随机颜色
-#define AL_RandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0]
+#define AL_RandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0f]
 //设置颜色
 #define AL_SetColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(r)/255.0 blue:(r)/255.0 alpha:a]
 
 //导航栏默认高度
-#define ALNavigationBarHeight 64
+#define ALNavigationBarHeight 64.0f
 //tabbar默认高度
-#define ALTabBarHeight 49
+#define ALTabBarHeight 64.0f
 
 //用户信息
 #define UserDefult_UserInfoKey @"UserDefult_UserInfoKey"
 
 //----网络接口Url
+
+//测试环境域名
+#define Debug_Domain @"http://localhost:8181/along"
+//正式环境域名
+#define Release_Domain @""
+
 //用户登录
-#define Request_UserLoginUrl @"/m/consumer/login"
+#define Request_UserLoginUrl @"/userLogin"
 //获取验证
-#define Request_UserGetCodeUrl @"/m/consumer/getRegistCode/"
+#define Request_UserGetCodeUrl @"/getCode"
 //用户注册
-#define Request_UserRegistUrl @"/m/consumer/regist"
+#define Request_UserRegistUrl @"/userRegist"
 //用户忘记密码
-#define Request_UserForgotPwdUrl @"/m/consumer/resetPassword/"
+#define Request_UserForgotPwdUrl @"/forgetPassword"
 //用户修改密码
-#define Request_UserUpdatePwdUrl @"/m/consumer/updatePassword"
+#define Request_UserUpdatePwdUrl @"/changePassword"
 #endif /* ALConfig_h */

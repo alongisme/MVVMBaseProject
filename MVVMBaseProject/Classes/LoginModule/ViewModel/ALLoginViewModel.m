@@ -21,7 +21,7 @@
     self.loginCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        [params jk_setString:self.account forKey:@"mobile"];
+        [params jk_setString:self.account forKey:@"name"];
         [params jk_setString:self.password forKey:@"password"];
         
         return [[[self.services.networkService requestDataWithUrl:Request_UserLoginUrl params:params] doNext:^(NSDictionary *sourceData) {

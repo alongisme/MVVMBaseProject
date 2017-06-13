@@ -8,7 +8,6 @@
 
 #import "ALAppDelegate.h"
 #import "ALNetworkConnect.h"
-#import "ALHttpConfig.h"
 #import "ALTabBarViewModel.h"
 #import "ALTabBarViewController.h"
 #import "ALViewModelServicesImpl.h"
@@ -29,8 +28,6 @@
     [self configureRootViewController];
     //配置导航栏属性
     [self configureNavigationBarAppearance];
-    //设置环境
-    [ALHttpConfig setALConfigEnv:DebugEnv];
     //配置监听网络状态
     [self configureNetworkStatus];
     //配置数据库

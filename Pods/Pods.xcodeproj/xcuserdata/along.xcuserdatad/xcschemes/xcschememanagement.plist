@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CYLTabBarController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DZNEmptyDataSet.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -92,6 +97,21 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>0D53E2300F9BA7F4DEFFF822602980AA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>169844F3E7BF49EC10F7B0E46DD292FA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>20A6DA6462CBFA0E604B5385CE6624E8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5437890023F30CA85DFCA260CA914D48</key>
 		<dict>
 			<key>primary</key>
@@ -102,27 +122,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>59289D871344798B561AE2CF20EDD6EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>77030468CEC9CE2E2DBAF663D0960B5B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>77FFE0F9559D71E04F9B1751649B7F94</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8080396E77B487841DEFF2FCC399BF02</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>93EC328B8290651CFE80173A166A2B95</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,7 +162,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E2BFB504AEA274043F48E3D7DF142ECB</key>
+		<key>C1418A1346F35CDF959378B2CAD37D08</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -162,7 +172,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F9D627A0E2819C2409B3A8F561C2AF2E</key>
+		<key>E968F19F08EE2DF58D60CEE6F7AA4853</key>
 		<dict>
 			<key>primary</key>
 			<true/>
