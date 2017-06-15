@@ -176,13 +176,20 @@ NSString * const ALCollectionViewControllerLayoutMinimumInteritemSpacingForSecti
 - (UICollectionView *)alCollectionView {
     if(!_alCollectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-        _alCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, ALNavigationBarHeight, self.view.bounds.size.width, self.view.bounds.size.height - ALNavigationBarHeight - ALTabBarHeight) collectionViewLayout:flowLayout];
+        _alCollectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
         _alCollectionView.backgroundColor = [UIColor clearColor];
         _alCollectionView.delegate = self;
         _alCollectionView.dataSource = self;
         _alCollectionView.emptyDataSetSource = self;
         _alCollectionView.emptyDataSetDelegate = self;
         [self.view addSubview:_alCollectionView];
+        
+        [_alCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(ALNavigationBarHeight);
+            make.width.equalTo(self.view);
+            make.centerX.equalTo(self.view);
+            make.height.mas_equalTo(self.view.bounds.size.height - ALNavigationBarHeight - ALTabBarHeight);
+        }];
     }
     return _alCollectionView;
 }

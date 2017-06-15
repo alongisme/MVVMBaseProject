@@ -43,6 +43,15 @@
         @strongify(self);
         return [[self requestDataSignal] takeUntil:self.rac_willDeallocSignal];
     }];
+    
+    self.backItemClickCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self);
+        return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            [self.services popViewModelAnimated:YES];
+            [subscriber sendCompleted];
+            return nil;
+        }] takeUntil:self.rac_willDeallocSignal];
+    }];
 }
 
 - (RACSignal *)requestDataSignal {return [RACSignal empty];}

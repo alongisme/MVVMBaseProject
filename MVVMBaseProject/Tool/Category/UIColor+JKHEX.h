@@ -6,8 +6,6 @@
 //  Copyright (c) 2014年 www.skyfox.org. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface UIColor (JKHEX)
 /**
  *  根据十六进制值返回颜色

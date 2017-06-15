@@ -39,7 +39,22 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.extendedLayoutIncludesOpaqueBars = YES;
     
+    if(self.navigationController.viewControllers.count <= 1) {
+        self.navigationBar.hideBackBtn = YES;
+    }
+}
+
+- (void)bindViewModel {
+    RAC(self,title) = RACObserve(self.viewModel,title);
+    RAC(self.navigationBar,title) = RACObserve(self.viewModel,title);
+
     @weakify(self);
+    self.viewModel.touchBeginSignal = [self rac_signalForSelector:@selector(touchesBegan:withEvent:)];
+    self.viewModel.touchesEnded = [self rac_signalForSelector:@selector(touchesEnded:withEvent:)];
+    self.viewModel.touchesMoved = [self rac_signalForSelector:@selector(touchesMoved:withEvent:)];
+    self.viewModel.touchesCancelled = [self rac_signalForSelector:@selector(touchesCancelled:withEvent:)];
+    [self.viewModel makeEventAvailable];
+    
     [self.viewModel.errors subscribeNext:^(NSError *error) {
         @strongify(self);
         if(error) {
@@ -48,16 +63,11 @@
             [self.view showHudInWindowError:message];
         }
     }];
-}
-
-- (void)bindViewModel {
-    RAC(self,title) = RACObserve(self.viewModel,title);
     
-    self.viewModel.touchBeginSignal = [self rac_signalForSelector:@selector(touchesBegan:withEvent:)];
-    self.viewModel.touchesEnded = [self rac_signalForSelector:@selector(touchesEnded:withEvent:)];
-    self.viewModel.touchesMoved = [self rac_signalForSelector:@selector(touchesMoved:withEvent:)];
-    self.viewModel.touchesCancelled = [self rac_signalForSelector:@selector(touchesCancelled:withEvent:)];
-    [self.viewModel makeEventAvailable];
+    [[self.navigationBar.backBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(self);
+        [self.viewModel.backItemClickCommand execute:nil];
+    }];
 }
 
 #pragma mark UIEvent Action
@@ -66,4 +76,19 @@
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
 
+#pragma mark lazy load 
+- (ALNavigationBarView *)navigationBar {
+    if(!_navigationBar) {
+        _navigationBar = [[ALNavigationBarView alloc] init];
+        [self.view addSubview:_navigationBar];
+        
+        [self.navigationBar mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(@0);
+            make.centerX.equalTo(self.view);
+            make.width.equalTo(self.view);
+            make.height.mas_equalTo(ALNavigationBarHeight);
+        }];
+    }
+    return _navigationBar;
+}
 @end

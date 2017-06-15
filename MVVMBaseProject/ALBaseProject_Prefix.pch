@@ -26,6 +26,7 @@
 #import "ALTableViewModel.h"
 #import "ALCollectionViewController.h"
 #import "ALCollectionViewModel.h"
+#import "ALNavigationBarView.h"
 
 #import "ALConfig.h"
 #import "ALConst.h"

@@ -68,6 +68,9 @@
     
     self.accountTF.text = @"11111111111";
     self.pwdTF.text = @"111111";
+    self.viewModel.account = @"11111111111";
+    self.viewModel.password = @"111111";
+    self.loginBtn.enabled = YES;
     
     @weakify(self);
     {

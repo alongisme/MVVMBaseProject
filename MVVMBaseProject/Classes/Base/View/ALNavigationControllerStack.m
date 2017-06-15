@@ -25,7 +25,7 @@
     return self;
 }
 
-- (UINavigationController *)currentController {
+- (ALNavigationController *)currentController {
 #if DEBUG
     if(!_currentController)
         NSLog(@"current navigationController : nil");
@@ -33,7 +33,7 @@
     return _currentController;
 }
 
-//bindNavigationPushAction
+//bind Navigation Push Action
 - (void)registerNavigationHooks {
     @weakify(self);
     [[(NSObject *)self.services rac_signalForSelector:@selector(pushViewModel:animated:)] subscribeNext:^(RACTuple *tuple) {
@@ -58,7 +58,7 @@
         UIViewController *baseViewController = [[ALViewRouter sharedInstance] viewControllerForViewModel:tuple.first];
         
         if (![baseViewController isKindOfClass:UINavigationController.class]) {
-            baseViewController = [[UINavigationController alloc] initWithRootViewController:baseViewController];
+            baseViewController = [[ALNavigationController alloc] initWithRootViewController:baseViewController];
         }
         
         [self.currentController presentViewController:baseViewController animated:[tuple.second boolValue] completion:^{
@@ -66,7 +66,7 @@
             if(completion) completion();
             
             if (![baseViewController isKindOfClass:UINavigationController.class])
-                self.currentController = (UINavigationController *)baseViewController;
+                self.currentController = (ALNavigationController *)baseViewController;
         }];
     }];
     
@@ -80,17 +80,13 @@
         self.currentController = nil;
         UIViewController *baseViewController = [[ALViewRouter sharedInstance] viewControllerForViewModel:tuple.first];
         
-        if([baseViewController isKindOfClass:[UINavigationController class]])
-            self.currentController = (UINavigationController *)baseViewController;
+        if([baseViewController isKindOfClass:[ALNavigationController class]])
+            self.currentController = (ALNavigationController *)baseViewController;
         
-        if(![baseViewController isKindOfClass:[UINavigationController class]] && ![baseViewController isKindOfClass:[ALTabBarViewController class]]) {
-            baseViewController = [[UINavigationController alloc] initWithRootViewController:baseViewController];
-            self.currentController = (UINavigationController *)baseViewController;
+        if(![baseViewController isKindOfClass:[ALNavigationController class]] && ![baseViewController isKindOfClass:[ALTabBarViewController class]]) {
+            baseViewController = [[ALNavigationController alloc] initWithRootViewController:baseViewController];
+            self.currentController = (ALNavigationController *)baseViewController;
         }
-        
-//        if([baseViewController isKindOfClass:[ALTabBarViewController class]]) {
-//            baseViewController = [[ALTabBarViewController alloc] init].tabBarController;
-//        }
         
         AL_MyAppDelegate.window.rootViewController = baseViewController;
     }];

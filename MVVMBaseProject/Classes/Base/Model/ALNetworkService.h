@@ -6,8 +6,6 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @protocol ALNetworkService <NSObject>
 
 - (RACSignal *)requestDataWithUrl:(NSString *)url params:(NSDictionary *)params;

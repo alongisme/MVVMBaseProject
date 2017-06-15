@@ -6,8 +6,6 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @protocol BindModel <NSObject>
 - (void)BindModel:(id)model;
 @end

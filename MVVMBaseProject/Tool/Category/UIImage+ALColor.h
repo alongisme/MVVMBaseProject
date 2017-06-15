@@ -6,7 +6,6 @@
 //  Copyright © 2016年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
 @interface UIImage (UIImage_ALColor)
 

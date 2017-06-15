@@ -6,8 +6,6 @@
 //  Copyright © 2016年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface NSObject (NSObject_ALUserDefault)
 /**
  *  保存

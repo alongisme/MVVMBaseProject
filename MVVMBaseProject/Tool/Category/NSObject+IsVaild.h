@@ -6,8 +6,6 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface NSObject (NSObject_IsVaild)
 - (BOOL)isVaild;
 @end

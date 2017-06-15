@@ -6,8 +6,6 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 typedef NS_ENUM(NSInteger, ALAlertViewActionStyle) {
     ALAlertViewActionStyleDefault = 0,
     ALAlertViewActionStyleCancel,

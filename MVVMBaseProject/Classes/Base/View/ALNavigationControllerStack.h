@@ -6,13 +6,12 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
+#import "ALNavigationController.h"
 @protocol ALNavigationProtocol;
 
 @interface ALNavigationControllerStack : NSObject
 
-@property (nonatomic, strong) UINavigationController *currentController;
+@property (nonatomic, strong) ALNavigationController *currentController;
 
 - (instancetype)initWithServices:(id<ALNavigationProtocol>)services;
 @end

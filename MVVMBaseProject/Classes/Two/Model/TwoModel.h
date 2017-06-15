@@ -6,7 +6,6 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
 @interface TwoModel : NSObject
 @property (nonatomic, assign) NSInteger chapterSort;

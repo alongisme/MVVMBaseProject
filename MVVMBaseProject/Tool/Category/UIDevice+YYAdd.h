@@ -9,8 +9,6 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
-#import <UIKit/UIKit.h>
-
 #define ALIPhone5 [[UIDevice currentDevice].machineModelName isEqualToString:@"iPhone 5"]
 #define ALIPhone5C [[UIDevice currentDevice].machineModelName isEqualToString:@"iPhone 5c"]
 #define ALIPhone5S [[UIDevice currentDevice].machineModelName isEqualToString:@"iPhone 5s"]

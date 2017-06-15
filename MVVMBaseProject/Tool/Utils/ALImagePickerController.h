@@ -6,8 +6,6 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface ALImagePickerController : NSObject
 - (instancetype)initWithController:(UIViewController *)controller SourceType:(UIImagePickerControllerSourceType)soureType choseImageBlcok:(void (^)(UIImage *image))choseImageBlock cannelBlock:(void (^)())cannelBlock;
 @end

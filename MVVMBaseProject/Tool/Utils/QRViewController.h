@@ -6,7 +6,6 @@
 //  Copyright (c) 2015年 threeti. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
 typedef void(^DoctorTidBlock)(NSString *);

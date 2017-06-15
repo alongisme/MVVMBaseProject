@@ -23,8 +23,6 @@
 //
 //https://github.com/devxoul/UIButton-TouchAreaInsets
 
-#import <UIKit/UIKit.h>
-
 @interface UIButton (JKTouchAreaInsets)
 /**
  *  设置按钮额外热区

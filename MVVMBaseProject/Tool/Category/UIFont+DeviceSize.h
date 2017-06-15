@@ -6,7 +6,6 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
 @interface UIFont (UIFont_DeviceSize)
 + (UIFont *)AL_setFont:(CGFloat)fontSize;

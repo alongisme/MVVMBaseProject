@@ -11,6 +11,7 @@
 		7FC837364AAAA6805D4C0DF7 /* libPods-MVVMBaseProjectUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E98DD005318C6E3E76714EA7 /* libPods-MVVMBaseProjectUITests.a */; };
 		BF10DBAE1EEA796400F8ED10 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BF10DBAD1EEA796400F8ED10 /* MBProgressHUD.bundle */; };
 		BF10DBB11EEA7A1900F8ED10 /* UIView+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BF10DBB01EEA7A1900F8ED10 /* UIView+HUD.m */; };
+		BF3764E81EF109D000F68A36 /* ALNavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3764E71EF109D000F68A36 /* ALNavigationBarView.m */; };
 		BF50ED051EDBB9BE00E417BA /* ALAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF50ED041EDBB9BE00E417BA /* ALAgreementViewController.m */; };
 		BF50ED0C1EDE8F3D00E417BA /* NSString+ALCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = BF50ED0B1EDE8F3D00E417BA /* NSString+ALCheck.m */; };
 		BF50ED0E1EDE933700E417BA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF50ED0D1EDE933700E417BA /* LaunchScreen.xib */; };
@@ -120,6 +121,8 @@
 		BF10DBAD1EEA796400F8ED10 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		BF10DBAF1EEA7A1900F8ED10 /* UIView+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HUD.h"; sourceTree = "<group>"; };
 		BF10DBB01EEA7A1900F8ED10 /* UIView+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HUD.m"; sourceTree = "<group>"; };
+		BF3764E61EF109D000F68A36 /* ALNavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALNavigationBarView.h; sourceTree = "<group>"; };
+		BF3764E71EF109D000F68A36 /* ALNavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALNavigationBarView.m; sourceTree = "<group>"; };
 		BF50ED031EDBB9BE00E417BA /* ALAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAgreementViewController.h; sourceTree = "<group>"; };
 		BF50ED041EDBB9BE00E417BA /* ALAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALAgreementViewController.m; sourceTree = "<group>"; };
 		BF50ED0A1EDE8F3D00E417BA /* NSString+ALCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ALCheck.h"; sourceTree = "<group>"; };
@@ -338,6 +341,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BF3764E51EF109AB00F68A36 /* ALNavigationBarView */ = {
+			isa = PBXGroup;
+			children = (
+				BF3764E61EF109D000F68A36 /* ALNavigationBarView.h */,
+				BF3764E71EF109D000F68A36 /* ALNavigationBarView.m */,
+			);
+			name = ALNavigationBarView;
+			sourceTree = "<group>";
+		};
 		BF8975FD1E9E1B2A00592D60 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -403,6 +415,7 @@
 		BF89760D1E9E1B8700592D60 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BF3764E51EF109AB00F68A36 /* ALNavigationBarView */,
 				BF89760E1E9E1B8700592D60 /* ALBaseViewController.h */,
 				BF89760F1E9E1B8700592D60 /* ALBaseViewController.m */,
 				BF8976141E9E1D1500592D60 /* ALNavigationController.h */,
@@ -1114,6 +1127,7 @@
 				BF8976051E9E1B4400592D60 /* ThreeViewController.m in Sources */,
 				BF8976191E9E207000592D60 /* ALTabBarViewModel.m in Sources */,
 				BF87320F1EA4C63F0001270A /* UIButton+JKTouchAreaInsets.m in Sources */,
+				BF3764E81EF109D000F68A36 /* ALNavigationBarView.m in Sources */,
 				BF9E082C1EA8BE7B0075EB45 /* NineView.m in Sources */,
 				BF8976161E9E1D1500592D60 /* ALNavigationController.m in Sources */,
 				BF9E08231EA8BE5A0075EB45 /* SixView.m in Sources */,

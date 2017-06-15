@@ -6,11 +6,13 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@class ALNavigationBarView;
 
 @interface ALBaseViewController : UIViewController
 
 @property (nonatomic, strong) ALBaseViewModel *viewModel;
+
+@property (nonatomic, strong) ALNavigationBarView *navigationBar;
 
 - (instancetype)initWithViewModel:(ALBaseViewModel *)viewModel;
 

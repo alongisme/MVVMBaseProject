@@ -70,21 +70,9 @@
 - (void)configureRootViewController {
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    self.services = [[ALViewModelServicesImpl alloc]init];
-    
     self.navigationControllerStack = [[ALNavigationControllerStack alloc] initWithServices:self.services];
-    ALTabBarViewModel *tabbarViewModel = [[ALTabBarViewModel alloc] initWithServices:self.services params:nil];
-    ALTabBarViewController *tabbarC = [[ALTabBarViewController alloc] initWithViewModel:tabbarViewModel];
-    
     ALLoginViewModel *loginViewModel = [[ALLoginViewModel alloc] initWithServices:self.services params:nil];
-//    ALLoginViewController *loginVC = [[ALLoginViewController alloc] initWithViewModel:loginViewModel];
-    
-//    ALNavigationController *navigationC = [[ALNavigationController alloc] initWithRootViewController:loginVC];
-//    self.navigationControllerStack.currentController = navigationC;
-//    self.window.rootViewController = navigationC;//tabbarC;
-    
     [self.services resetRootViewModel:loginViewModel];
-    
     [self.window makeKeyAndVisible];
 }
 
@@ -120,5 +108,13 @@
 #pragma mark - ConfigureBmodSDK
 - (void)configureBmodSDK {
 //    [Bmob registerWithAppKey:@"d00cb9354ebe7ed95eecd6abec38b846"];
+}
+
+#pragma mark - lazy load 
+- (ALViewModelServicesImpl *)services {
+    if(!_services) {
+        _services = [[ALViewModelServicesImpl alloc]init];
+    }
+    return _services;
 }
 @end

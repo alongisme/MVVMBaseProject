@@ -6,7 +6,6 @@
 //  Copyright © 2016年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger,ALFrameAlignmentStyle) {
     ALFrameAlignmentStyleHorizontal = 0, //水平对齐

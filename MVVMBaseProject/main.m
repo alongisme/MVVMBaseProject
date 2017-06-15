@@ -6,7 +6,6 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "ALAppDelegate.h"
 
 int main(int argc, char * argv[]) {

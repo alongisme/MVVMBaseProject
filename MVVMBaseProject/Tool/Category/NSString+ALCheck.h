@@ -6,7 +6,6 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
 @interface  NSString (NSString_ALCheck)
 //判断手机号码 是否11位 以1开头

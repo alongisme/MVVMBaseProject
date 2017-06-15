@@ -6,7 +6,6 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
 @interface RACCommonTools : NSObject
 //检验输入框长度

@@ -158,7 +158,7 @@
 #pragma mark lazy load
 - (UITableView *)alTableView {
     if(!_alTableView) {
-        _alTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, ALNavigationBarHeight, self.view.bounds.size.width, self.view.bounds.size.height - ALNavigationBarHeight - ALTabBarHeight) style:UITableViewStylePlain];
+        _alTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
         _alTableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _alTableView.delegate = self;
         _alTableView.dataSource = self;
@@ -166,6 +166,13 @@
         _alTableView.emptyDataSetDelegate = self;
         _alTableView.tableFooterView = [UIView new];
         [self.view addSubview:_alTableView];
+        
+        [_alTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(ALNavigationBarHeight);
+            make.width.equalTo(self.view);
+            make.centerX.equalTo(self.view);
+            make.height.mas_equalTo(self.view.bounds.size.height - ALNavigationBarHeight - ALTabBarHeight);
+        }];
     }
     return _alTableView;
 }
