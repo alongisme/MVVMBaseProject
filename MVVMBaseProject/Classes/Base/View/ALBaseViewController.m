@@ -9,6 +9,7 @@
 #import "ALBaseViewController.h"
 
 @interface ALBaseViewController ()
+//导航栏返回按钮
 @property (nonatomic, strong) UIBarButtonItem *backBtnItem;
 @end
 

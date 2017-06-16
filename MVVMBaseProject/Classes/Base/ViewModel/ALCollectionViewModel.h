@@ -18,7 +18,7 @@
 //上下拉刷新加载开关
 @property (nonatomic, assign) BOOL shouldPullToRefresh;
 @property (nonatomic, assign) BOOL shouldPullDownLoadMore;
-//空数据显示标题
+//没有数据时 提示的文字
 @property (nonatomic, copy) NSString *emptyDataTitle;
 //item点击
 @property (nonatomic, strong) RACCommand *didSelectCommand;

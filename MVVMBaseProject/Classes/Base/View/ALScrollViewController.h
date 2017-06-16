@@ -78,11 +78,6 @@ typedef NS_ENUM(NSInteger, ALScrollViewScrollDirection) {
 
 @interface ALScrollViewController : ALBaseViewController
 @property (nonatomic, strong) UIScrollView *scrollView;
-/**
- 空数据显示文字
- */
-@property (nonatomic, strong) NSString *emptyDataTitle;
-
 
 /**
  item数量 item数量决定了会有多少view 一个item对应会有head 和 foot

@@ -10,7 +10,6 @@
 #import "ALNetworkService.h"
 
 @protocol ALViewModelServices <NSObject, ALNavigationProtocol>
-
+//网络服务代理
 @property (nonatomic, strong) id<ALNetworkService> networkService;
-
 @end
