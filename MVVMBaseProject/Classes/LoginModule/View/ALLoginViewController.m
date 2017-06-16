@@ -27,6 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationBar.hidden = YES;
+    
     [self.accountTF mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@30);
         make.right.equalTo(@-30);

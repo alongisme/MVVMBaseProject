@@ -20,11 +20,7 @@
     @weakify(self);
     self.loginCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         
-        NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        [params jk_setString:self.account forKey:@"name"];
-        [params jk_setString:self.password forKey:@"password"];
-        
-        return [[[self.services.networkService requestDataWithUrl:Request_UserLoginUrl params:params] doNext:^(NSDictionary *sourceData) {
+        return [[[self.services.networkService requestUserLoginWithAccount:self.account Password:self.password] doNext:^(NSDictionary *sourceData) {
             @strongify(self);
             [sourceData AL_saveLocalWithLocalKey:UserDefult_UserInfoKey];
             

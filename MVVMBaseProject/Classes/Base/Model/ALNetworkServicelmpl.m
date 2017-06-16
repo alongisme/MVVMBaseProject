@@ -10,14 +10,74 @@
 #import <AFNetworking.h>
 
 @implementation ALNetworkServicelmpl
+/**
+ 用户登录
+ 
+ @param account 账号
+ @param password 密码
+ @return 信号
+ */
+- (RACSignal *)requestUserLoginWithAccount:(NSString *)account
+                                  Password:(NSString *)password {
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params jk_setString:account forKey:@"name"];
+    [params jk_setString:password forKey:@"password"];
+    return [self requestDataWithUrl:[Request_Domain stringByAppendingPathComponent:@"/userLogin"] params:params];
+}
+
+/**
+ 用户注册
+ 
+ @param account 账号
+ @param password 密码
+ @param code 验证码
+ @return 信号
+ */
+- (RACSignal *)requestUserRegistWithAccount:(NSString *)account
+                                   Password:(NSString *)password
+                                       code:(NSString *)code {
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params jk_setString:account forKey:@"name"];
+    [params jk_setString:password forKey:@"password"];
+    [params jk_setString:code forKey:@"code"];
+    return [self requestDataWithUrl:[Request_Domain stringByAppendingPathComponent:@"/userRegist"] params:params];
+}
+
+/**
+ 用户重置密码(忘记密码)
+ 
+ @param account 账号
+ @param password 密码
+ @param code 验证码
+ @return 信号
+ */
+- (RACSignal *)requestUserForgetWithAccount:(NSString *)account
+                                   Password:(NSString *)password
+                                       code:(NSString *)code {
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params jk_setString:account forKey:@"name"];
+    [params jk_setString:password forKey:@"password"];
+    [params jk_setString:code forKey:@"code"];
+    return [self requestDataWithUrl:[Request_Domain stringByAppendingPathComponent:@"/forgetPassword"] params:params];
+}
+
+/**
+ 用户获取短信验证码
+ 
+ @param account 手机号码
+ @return 信号
+ */
+- (RACSignal *)requestGetCodeWithAccount:(NSString *)account {
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params jk_setString:account forKey:@"name"];
+    return [self requestDataWithUrl:[Request_Domain stringByAppendingPathComponent:@"/getCode"] params:params];
+}
 
 - (RACSignal *)requestDataWithUrl:(NSString *)url params:(NSDictionary *)params {
         
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
-        NSString *requestUrl = [Debug_Domain stringByAppendingPathComponent:url];
-        
-        NSURLSessionTask *task = [[ALNetworkConnect sharedInstance].sessionManager POST:requestUrl parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSURLSessionTask *task = [[ALNetworkConnect sharedInstance].sessionManager POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
             BOOL isJosn = [NSJSONSerialization isValidJSONObject:responseObject];
             id dataSource = nil;
@@ -46,7 +106,7 @@
                 
             }
             
-            NSLog(@"--------------------------------------------------------\nRequest:\n Url:  %@\n Params:  %@\n --------------------------------------------------------\nResponse: %@\n--------------------------------------------------------",requestUrl,params,logString);
+            NSLog(@"--------------------------------------------------------\nRequest:\n Url:  %@\n Params:  %@\n --------------------------------------------------------\nResponse: %@\n--------------------------------------------------------",url,params,logString);
             
             if([dataSource isKindOfClass:[NSDictionary class]]) {
                 dataSource = (NSDictionary *)dataSource;
@@ -55,11 +115,11 @@
                 if(code == 1) {
                     [subscriber sendNext:[dataSource jk_dictionaryForKey:@"object"]?[dataSource jk_dictionaryForKey:@"object"]:[dataSource jk_stringForKey:@"object"]];
                 } else {
-                    NSError *error = [[NSError alloc] initWithDomain:requestUrl code:code userInfo:dataSource];
+                    NSError *error = [[NSError alloc] initWithDomain:url code:code userInfo:dataSource];
                     [subscriber sendError:error];
                 }
             } else {
-                NSError *error = [[NSError alloc] initWithDomain:requestUrl code:0 userInfo:@{@"message":@"data error"}];
+                NSError *error = [[NSError alloc] initWithDomain:url code:0 userInfo:@{@"message":@"data error"}];
                 [subscriber sendError:error];
             }
 
@@ -75,5 +135,6 @@
         }];
     }];
 }
+
 
 @end

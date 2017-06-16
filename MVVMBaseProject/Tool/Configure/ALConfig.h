@@ -40,21 +40,6 @@
 //用户信息
 #define UserDefult_UserInfoKey @"UserDefult_UserInfoKey"
 
-//----网络接口Url
-
-//测试环境域名
-#define Debug_Domain @"http://localhost:8181/along"
-//正式环境域名
-#define Release_Domain @""
-
-//用户登录
-#define Request_UserLoginUrl @"/userLogin"
-//获取验证
-#define Request_UserGetCodeUrl @"/getCode"
-//用户注册
-#define Request_UserRegistUrl @"/userRegist"
-//用户忘记密码
-#define Request_UserForgotPwdUrl @"/forgetPassword"
-//用户修改密码
-#define Request_UserUpdatePwdUrl @"/changePassword"
+//域名
+#define Request_Domain @"http://localhost:8181/along"
 #endif /* ALConfig_h */
