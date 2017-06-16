@@ -25,15 +25,7 @@
     return self;
 }
 
-- (ALNavigationController *)currentController {
-#if DEBUG
-    if(!_currentController)
-        NSLog(@"current navigationController : nil");
-#endif
-    return _currentController;
-}
-
-//bind Navigation Push Action
+//导航跳转事件栏信号绑定
 - (void)registerNavigationHooks {
     @weakify(self);
     [[(NSObject *)self.services rac_signalForSelector:@selector(pushViewModel:animated:)] subscribeNext:^(RACTuple *tuple) {
@@ -90,5 +82,11 @@
         
         AL_MyAppDelegate.window.rootViewController = baseViewController;
     }];
+}
+
+- (ALNavigationController *)currentController {
+    if(!_currentController)
+        NSLog(@"current navigationController : nil");
+    return _currentController;
 }
 @end

@@ -25,9 +25,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //设置需要显示的控制器
     self.tabBarController.viewControllers = self.subViewControllers;
-    
+    //默认显示第一个控制器
     AL_MyAppDelegate.navigationControllerStack.currentController = [_subViewControllers firstObject];
+    //tabbar点击事件信号绑定
     [[self rac_signalForSelector:@selector(tabBarController:didSelectViewController:) fromProtocol:@protocol(UITabBarControllerDelegate)] subscribeNext:^(RACTuple *tuple) {
         AL_MyAppDelegate.navigationControllerStack.currentController = tuple.second;
     }];

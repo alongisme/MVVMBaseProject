@@ -13,7 +13,8 @@ UIKIT_EXTERN NSString * const ALCollectionViewControllerLayoutInsetForSection;
 UIKIT_EXTERN NSString * const ALCollectionViewControllerLayoutMinimumLineSpacingForSection;
 UIKIT_EXTERN NSString * const ALCollectionViewControllerLayoutMinimumInteritemSpacingForSection;
 
-@interface ALCollectionViewController : ALBaseViewController 
+@interface ALCollectionViewController : ALBaseViewController
+//列表
 @property (nonatomic, strong) UICollectionView *collection;
 
 @property (nonatomic, strong) NSString *emptyDataTitle;

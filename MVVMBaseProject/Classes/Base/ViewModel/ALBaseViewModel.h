@@ -23,11 +23,13 @@
 @property (nonatomic, strong) RACSignal *touchesEnded;
 @property (nonatomic, strong) RACSignal *touchesMoved;
 @property (nonatomic, strong) RACSignal *touchesCancelled;
+@property (nonatomic, strong) RACReplaySubject *touchReplaySubject;
+
+@property (nonatomic, strong) RACReplaySubject *backBtnItemClick;
 
 //Command
 @property (nonatomic, strong) RACCommand *requestDataCommand;
 @property (nonatomic, strong) RACCommand *leftItemClickCommand;
-@property (nonatomic, strong) RACCommand *backItemClickCommand;
 @property (nonatomic, strong) RACCommand *rightItemClickCOmmand;
 
 //common error
@@ -36,5 +38,4 @@
 - (instancetype)initWithServices:(id<ALViewModelServices>)Services params:(NSDictionary *)params;
 - (void)initialize;
 - (RACSignal *)requestDataSignal;
-- (void)makeEventAvailable;
 @end

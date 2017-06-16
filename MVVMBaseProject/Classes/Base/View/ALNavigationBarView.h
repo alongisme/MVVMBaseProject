@@ -6,12 +6,11 @@
 //  Copyright © 2017年 along. All rights reserved.
 //
 
-@interface ALNavigationBarView : UIView
-@property (nonatomic, assign) BOOL hideBackBtn;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) UIButton *rightBtn;
-@property (nonatomic, strong) UIButton *leftBtn;
-@property (nonatomic, strong) UIButton *backBtn;
-@property (nonatomic, strong) NSArray *rightBtns;
-@property (nonatomic, strong) NSArray *leftBtns;
+@interface ALNavigationBarView : UINavigationBar
+//标题
+@property (nonatomic,strong) NSString *navigationTitle;
+//左按钮item
+@property (nonatomic,strong) UIBarButtonItem *leftBarButtonItem;
+//右按钮item
+@property (nonatomic,strong) UIBarButtonItem *rightBarButtonItem;
 @end

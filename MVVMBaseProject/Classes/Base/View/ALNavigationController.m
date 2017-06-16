@@ -8,7 +8,7 @@
 
 #import "ALNavigationController.h"
 
-@interface ALNavigationController ()
+@interface ALNavigationController ()<UIGestureRecognizerDelegate>
 
 @end
 
@@ -16,8 +16,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    //隐藏导航栏
     self.navigationBar.hidden = YES;
+    //启动滑动返回手势
+    self.interactivePopGestureRecognizer.delegate = self;
+    self.interactivePopGestureRecognizer.enabled = YES;
 }
 
 @end

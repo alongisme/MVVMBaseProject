@@ -9,10 +9,7 @@
 #import "ALNavigationBarView.h"
 
 @interface ALNavigationBarView ()
-@property (nonatomic, strong) UILabel *titleV;
-
-@property (nonatomic, strong) UIImageView *backgroundIV;
-
+@property (nonatomic, strong) UINavigationItem *item;
 @end
 
 @implementation ALNavigationBarView
@@ -32,63 +29,34 @@
 }
 
 - (void)setUp {
-    self.backgroundColor = [UIColor lightGrayColor];
+    self.items = @[self.item];
     
     @weakify(self);
-    [self.backgroundIV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
-    }];
-    
-    [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self).offset(10);
-        make.left.equalTo(@15);
-    }];
-    
-    [RACObserve(self, title) subscribeNext:^(NSString *text) {
-        if([text isVaild]) {
-            self.titleV.text = text;
-            [self.titleV mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self);
-                make.centerY.equalTo(self).offset(10);
-            }];
-        }
-    }];
-    
-    [RACObserve(self, hideBackBtn) subscribeNext:^(NSNumber *stateNumber) {
+    [RACObserve(self, navigationTitle) subscribeNext:^(id x) {
         @strongify(self);
-        self.backBtn.hidden = stateNumber.boolValue;
+        if([x isVaild])
+            self.item.title = x;
     }];
+    
+    [RACObserve(self, leftBarButtonItem) subscribeNext:^(id x) {
+        @strongify(self);
+        if([x isVaild])
+            self.item.leftBarButtonItem = x;
+    }];
+    
+    [RACObserve(self, rightBarButtonItem) subscribeNext:^(id x) {
+        @strongify(self);
+        if([x isVaild])
+            self.item.rightBarButtonItem = x;
+    }];
+    
 }
 
-#pragma makr lazy load
-- (UIImageView *)backgroundIV {
-    if(!_backgroundIV) {
-        _backgroundIV = [UIImageView new];
-        _backgroundIV.contentMode = UIViewContentModeScaleAspectFit;
-        _backgroundIV.autoresizesSubviews = YES;
-        _backgroundIV.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        [self addSubview:_backgroundIV];
+- (UINavigationItem *)item {
+    if(!_item) {
+        _item = [[UINavigationItem alloc] initWithTitle:@""];
     }
-    return _backgroundIV;
+    return _item;
 }
 
-- (UILabel *)titleV {
-    if(!_titleV) {
-        _titleV = [UILabel new];
-        _titleV.textAlignment = NSTextAlignmentCenter;
-        _titleV.textColor = [UIColor blackColor];
-        [self addSubview:_titleV];
-    }
-    return _titleV;
-}
-
-- (UIButton *)backBtn {
-    if(!_backBtn) {
-        _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_backBtn setTitle:@"返回" forState:UIControlStateNormal];
-        [_backBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [self addSubview:_backBtn];
-    }
-    return _backBtn;
-}
 @end

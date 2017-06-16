@@ -58,31 +58,10 @@ NSString * const ALScrollViewBackgroundColorBottomLineView = @"ALScrollViewBackg
     [super bindViewModel];
     
     @weakify(self);
-    if(self.viewModel.shouldPullToRefresh) {
-        self.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            @strongify(self);
-            [self.viewModel.requestRemoteDataCommand execute:@1];
-        }];
-        
-        [[self.viewModel.requestRemoteDataCommand.executing skip:1] subscribeNext:^(NSNumber *executing) {
-            @strongify(self);
-            if(executing.boolValue) {
-                [self.alScrollView.mj_header beginRefreshing];
-            }
-            else {
-                [self.alScrollView.mj_header endRefreshing];
-            }
-        }];
-    }
-    
-    [[[RACObserve(self.viewModel, dataModel)
-       distinctUntilChanged]
-      deliverOnMainThread]
-     subscribeNext:^(id x) {
+    [[[RACObserve(self.viewModel, dataModel) distinctUntilChanged] deliverOnMainThread] subscribeNext:^(id x) {
          @strongify(self)
          [self reloadData];
      }];
-
 }
 
 - (void)initSubviews {

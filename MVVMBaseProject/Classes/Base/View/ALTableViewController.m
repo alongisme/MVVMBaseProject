@@ -22,11 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //设置默认的列表
     self.tableView = self.alTableView;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCellIdentifier"];
 
     @weakify(self);
+    //上拉加载
     if(self.viewModel.shouldPullToRefresh) {
         self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             @strongify(self);
@@ -35,15 +37,10 @@
         
         [[self.viewModel.requestRemoteDataCommand.executing skip:1] subscribeNext:^(NSNumber *executing) {
             @strongify(self);
-            if(executing.boolValue) {
-                [self.tableView.mj_header beginRefreshing];
-            }
-            else {
-                [self.tableView.mj_header endRefreshing];
-            }
+            executing.boolValue?[self.tableView.mj_header beginRefreshing]:[self.tableView.mj_header endRefreshing];
         }];
     }
-    
+    //下拉刷新
     if(self.viewModel.shouldPullDownLoadMore) {
         self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
             @strongify(self);
@@ -52,22 +49,10 @@
         
         [[self.viewModel.requestLoadMoreDataCommand.executing skip:1] subscribeNext:^(NSNumber *executing) {
             @strongify(self);
-            if(executing.boolValue) {
-                [self.tableView.mj_footer beginRefreshing];
-            }
-            else {
-                [self.tableView.mj_footer endRefreshing];
-            }
+            executing.boolValue?[self.tableView.mj_footer beginRefreshing]:[self.tableView.mj_footer endRefreshing];
         }];
     }
     
-}
-
-- (void)dealloc {
-    _tableView.dataSource = nil;
-    _tableView.delegate = nil;
-    _alTableView.emptyDataSetDelegate = nil;
-    _alTableView.emptyDataSetSource = nil;
 }
 
 - (void)bindViewModel {
@@ -76,6 +61,7 @@
     RAC(self,emptyDataTitle) = [RACObserve(self.viewModel, emptyDataTitle) distinctUntilChanged];
     
     @weakify(self);
+    //当数据源更新时 刷新一次数据
     [[[RACObserve(self.viewModel, dataSource) distinctUntilChanged] deliverOnMainThread] subscribeNext:^(id x) {
         @strongify(self);
         [self reloadData];
@@ -110,7 +96,6 @@
     
     id object = self.viewModel.dataSource[indexPath.section][indexPath.row];
     [self configureCell:cell atIndexPath:indexPath withObject:(id)object];
-    
     return cell;
 }
 
@@ -175,5 +160,13 @@
         }];
     }
     return _alTableView;
+}
+
+#pragma mark dealloc
+- (void)dealloc {
+    _tableView.dataSource = nil;
+    _tableView.delegate = nil;
+    _alTableView.emptyDataSetDelegate = nil;
+    _alTableView.emptyDataSetSource = nil;
 }
 @end

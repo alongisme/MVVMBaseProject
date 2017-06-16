@@ -85,7 +85,12 @@
 
 #pragma mark - ConfigureNavigationBarAppearance
 - (void)configureNavigationBarAppearance {
-    
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage al_imageWithColor:[UIColor lightGrayColor]] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName : [UIColor blackColor],
+                                                           NSFontAttributeName : [UIFont AL_setFontBold:22.0],
+                                                           }];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
 }
 
 - (void)configureJRDBManager {

@@ -9,14 +9,14 @@
 #import "ALBaseViewModel.h"
 
 @interface ALScrollViewModel : ALBaseViewModel
+//数据源
 @property (nonatomic, strong) NSObject *dataModel;
-
-@property (nonatomic, assign) BOOL shouldPullToRefresh;
-
+//数据获取
 @property (nonatomic, strong) RACCommand *requestRemoteDataCommand;
-
+//head点击
 @property (nonatomic, strong) RACCommand *headDidSelectCommand;
+//body点击
 @property (nonatomic, strong) RACCommand *itemDidSelectCommand;
+//foot点击
 @property (nonatomic, strong) RACCommand *footDidSelectCommand;
-
 @end

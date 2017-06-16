@@ -30,31 +30,43 @@
     return self;
 }
 
-- (RACSubject *)errors {
-    if (!_errors) _errors = [RACSubject subject];
-    return _errors;
-}
-
 - (void)initialize {
+    //赋值标题
     self.title = self.params[@"title"];
     
     @weakify(self);
+    //数据获取
     self.requestDataCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
         return [[self requestDataSignal] takeUntil:self.rac_willDeallocSignal];
     }];
     
-    self.backItemClickCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    //导航栏返回按钮 点击信号 默认做统一返回处理
+    [[self.backBtnItemClick takeUntil:self.rac_willDeallocSignal] subscribeNext:^(id x) {
         @strongify(self);
-        return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [self.services popViewModelAnimated:YES];
-            [subscriber sendCompleted];
-            return nil;
-        }] takeUntil:self.rac_willDeallocSignal];
+        [self.services popViewModelAnimated:YES];
     }];
 }
 
 - (RACSignal *)requestDataSignal {return [RACSignal empty];}
 
-- (void)makeEventAvailable {}
+#pragma mark lazy load
+- (RACSubject *)errors {
+    if (!_errors) _errors = [RACSubject subject];
+    return _errors;
+}
+
+- (RACReplaySubject *)backBtnItemClick {
+    if(!_backBtnItemClick) {
+        _backBtnItemClick = [RACReplaySubject replaySubjectWithCapacity:1];
+    }
+    return _backBtnItemClick;
+}
+
+- (RACReplaySubject *)touchReplaySubject {
+    if(!_touchReplaySubject) {
+        _touchReplaySubject = [RACReplaySubject replaySubjectWithCapacity:4];
+    }
+    return _touchReplaySubject;
+}
 @end

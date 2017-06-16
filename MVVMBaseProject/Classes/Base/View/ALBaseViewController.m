@@ -7,10 +7,9 @@
 //
 
 #import "ALBaseViewController.h"
-#import <MBProgressHUD.h>
 
 @interface ALBaseViewController ()
-
+@property (nonatomic, strong) UIBarButtonItem *backBtnItem;
 @end
 
 @implementation ALBaseViewController
@@ -39,42 +38,49 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.extendedLayoutIncludesOpaqueBars = YES;
     
-    if(self.navigationController.viewControllers.count <= 1) {
-        self.navigationBar.hideBackBtn = YES;
+    //导航栏首界面不添加返回按钮
+    if(self.navigationController.viewControllers.count > 1) {
+        self.navigationBar.leftBarButtonItem = self.backBtnItem;
     }
 }
 
 - (void)bindViewModel {
     RAC(self,title) = RACObserve(self.viewModel,title);
-    RAC(self.navigationBar,title) = RACObserve(self.viewModel,title);
+    RAC(self.navigationBar, navigationTitle) = RACObserve(self,title);
+    RAC(self.navigationBar, leftBarButtonItem) = RACObserve(self.navigationItem, leftBarButtonItem);
+    RAC(self.navigationBar, rightBarButtonItem) = RACObserve(self.navigationItem, rightBarButtonItem);
 
     @weakify(self);
-    self.viewModel.touchBeginSignal = [self rac_signalForSelector:@selector(touchesBegan:withEvent:)];
-    self.viewModel.touchesEnded = [self rac_signalForSelector:@selector(touchesEnded:withEvent:)];
-    self.viewModel.touchesMoved = [self rac_signalForSelector:@selector(touchesMoved:withEvent:)];
-    self.viewModel.touchesCancelled = [self rac_signalForSelector:@selector(touchesCancelled:withEvent:)];
-    [self.viewModel makeEventAvailable];
+    //以下方法控制器不常用所以暂不添加 只添加一个点击代理 避免复杂的判断
+    [[RACSignal merge:@[
+                        [self rac_signalForSelector:@selector(touchesBegan:withEvent:)],
+//                        [self rac_signalForSelector:@selector(touchesEnded:withEvent:)],
+//                        [self rac_signalForSelector:@selector(touchesMoved:withEvent:)],
+//                        [self rac_signalForSelector:@selector(touchesCancelled:withEvent:)]
+                        ]
+      ] subscribe:self.viewModel.touchReplaySubject];
     
+    //绑定导航栏 返回按钮事件
+    [[self.backBtnItem.customView rac_signalForControlEvents:UIControlEventTouchUpInside] subscribe:self.viewModel.backBtnItemClick];
+    
+    //统一错误处理
     [self.viewModel.errors subscribeNext:^(NSError *error) {
         @strongify(self);
         if(error) {
             NSDictionary *errorInfo = error.userInfo;
             NSString *message = [errorInfo jk_stringForKey:@"message"];
-            [self.view showHudInWindowError:message];
+            NSString *localizedDescription = [errorInfo jk_stringForKey:@"NSLocalizedDescription"];
+            [self.view showHudInWindowError:message?message:localizedDescription];
         }
     }];
     
-    [[self.navigationBar.backBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        @strongify(self);
-        [self.viewModel.backItemClickCommand execute:nil];
-    }];
 }
 
 #pragma mark UIEvent Action
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
+//- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
+//- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
+//- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {}
 
 #pragma mark lazy load 
 - (ALNavigationBarView *)navigationBar {
@@ -90,5 +96,18 @@
         }];
     }
     return _navigationBar;
+}
+
+- (UIBarButtonItem *)backBtnItem {
+    if(!_backBtnItem) {
+        UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        backBtn.al_setFrame(0,0,40,25);
+        [backBtn setTitle:@"返回" forState:UIControlStateNormal];
+        [backBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        
+        _backBtnItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    }
+    return _backBtnItem;
 }
 @end

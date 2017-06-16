@@ -106,6 +106,7 @@
             [self.viewModel.services pushViewModel:registViewModel animated:YES];
         }];
     }
+    
 }
 
 #pragma mark lazy load subviews
