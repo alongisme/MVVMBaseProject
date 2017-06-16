@@ -9,13 +9,13 @@
 #import "ALImagePickerController.h"
 
 @interface ALImagePickerController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
-@property (nonatomic,copy) void (^choseImage)(UIImage *image);
+@property (nonatomic,copy) void (^choseImage)(UIImage *image, NSDictionary *info);
 @property (nonatomic,copy) void (^cannel)();
 @end
 
 @implementation ALImagePickerController
 
-- (instancetype)initWithController:(UIViewController *)controller SourceType:(UIImagePickerControllerSourceType)soureType choseImageBlcok:(void (^)(UIImage *image))choseImageBlock cannelBlock:(void (^)())cannelBlock {
+- (instancetype)initWithController:(UIViewController *)controller SourceType:(UIImagePickerControllerSourceType)soureType choseImageBlcok:(void (^)(UIImage *image,NSDictionary *info))choseImageBlock cannelBlock:(void (^)())cannelBlock {
     if(self = [super init]) {
         self.choseImage = choseImageBlock;
         self.cannel = cannelBlock;
@@ -27,10 +27,8 @@
         
         // 判断数据来源是否可用
         if([UIImagePickerController isSourceTypeAvailable:soureType]) {
-            
             // 设置数据来源
             imagePickerController.sourceType = soureType;
-            
             // 打开相机/相册/图库
             [controller presentViewController:imagePickerController animated:YES completion:nil];
         }
@@ -50,10 +48,8 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     if(_choseImage) {
-        _choseImage(image);
+        _choseImage(image,info);
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
-
-
 @end

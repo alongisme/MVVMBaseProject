@@ -13,10 +13,10 @@
 - (void)initialize {
     [super initialize];
     
-    self.registEnable = [RACCommonTools combineLatestInputSignal:@[RACObserve(self, account),RACObserve(self, nickName),RACObserve(self, code),RACObserve(self, password),RACObserve(self, sePassword)]];
+    RACSignal *registEnable = [RACCommonTools combineLatestInputSignal:@[RACObserve(self, account),RACObserve(self, nickName),RACObserve(self, code),RACObserve(self, password),RACObserve(self, sePassword)]];
     
     @weakify(self);
-    self.getCodeCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    self.getCodeCommand = [[RACCommand alloc] initWithEnabled:registEnable signalBlock:^RACSignal *(id input) {
         @strongify(self);
         if([self.account al_checkPhoneNumber]) {
             return [[self.services.networkService requestGetCodeWithAccount:self.code] takeUntil:self.rac_willDeallocSignal];

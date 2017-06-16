@@ -31,7 +31,7 @@
     [super viewDidLoad];
 
     self.scrollView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    [self.viewModel.requestRemoteDataCommand execute:@1];
+    [self.viewModel.requestRemoteDataCommand execute:nil];
 }
 
 - (void)bindViewModel {
@@ -107,11 +107,12 @@
     CGPoint offsetPoint = CGPointZero;
     NSNumber *spacing = @0;
     UIColor *bgColor = [UIColor whiteColor];
-    NSNumber *didSelected = @1;
+    NSNumber *didSelected = @0;
     
-    if(index == 0) {
-        itemSize = CGSizeMake(itemSize.width, 100);
-        didSelected = @0;
+    if(index == 0 || index == 9) {
+        if(index == 0)
+            itemSize = CGSizeMake(itemSize.width, 100);
+        didSelected = @1;
     }
     return ALOptionItem(itemSize, offsetPoint, spacing, bgColor, didSelected);
 }

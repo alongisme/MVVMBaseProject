@@ -513,7 +513,6 @@
 			children = (
 				BFA0E5BB1E9CBEF800F4445B /* Category */,
 				BFA0E5BC1E9CBEF800F4445B /* Configure */,
-				BFA0E5BD1E9CBEF800F4445B /* NetWork */,
 				BFA0E5BE1E9CBEF800F4445B /* Utils */,
 			);
 			path = Tool;
@@ -750,13 +749,6 @@
 				BFD8EEE41E9DD42100934561 /* ALNetworkConnect.m */,
 			);
 			path = Configure;
-			sourceTree = "<group>";
-		};
-		BFA0E5BD1E9CBEF800F4445B /* NetWork */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NetWork;
 			sourceTree = "<group>";
 		};
 		BFA0E5BE1E9CBEF800F4445B /* Utils */ = {

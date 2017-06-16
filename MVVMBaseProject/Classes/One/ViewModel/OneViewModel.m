@@ -35,17 +35,19 @@
     }];
     
     self.didSelectCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSIndexPath *indexPath) {
+        @strongify(self);
         NSLog(@"%@",indexPath);
+        
         return [RACSignal empty];
     }];
     
 }
 
 - (RACSignal *)requestRemoteDataSignal {
-    return [[self.services.networkService requestDataWithUrl:@"/testData" params:@{}] map:^id(NSDictionary *dataSource) {
-        NSArray *chaptersArr = [dataSource jk_arrayForKey:@"data"];
+    return [[self.services.networkService requestDataWithUrl:[Request_Domain stringByAppendingString:@"/testData"] params:@{}] map:^id(NSDictionary *dataSource) {
+//        NSArray *chaptersArr = [dataSource jk_arrayForKey:@"object"];
 //        J_TruncateTable(OneModel);
-        return [[chaptersArr.rac_sequence map:^id(id value) {
+        return [[dataSource.rac_sequence map:^id(id value) {
             OneModel *model = [OneModel mj_objectWithKeyValues:value];
 //            J_Insert(model).updateResult;
             return model;

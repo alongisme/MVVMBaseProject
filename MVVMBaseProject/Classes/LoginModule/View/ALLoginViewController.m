@@ -66,7 +66,6 @@
     
     RAC(self.viewModel, account) = self.accountTF.rac_textSignal;
     RAC(self.viewModel, password) = self.pwdTF.rac_textSignal;
-    RAC(self.loginBtn,enabled) = self.viewModel.loginEnableSignal;
     
     self.accountTF.text = @"11111111111";
     self.pwdTF.text = @"111111";

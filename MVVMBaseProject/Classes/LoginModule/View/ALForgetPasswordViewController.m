@@ -71,7 +71,6 @@
     RAC(self.viewModel,code) = self.codeTF.rac_textSignal;
     RAC(self.viewModel,password) = self.passwordTF.rac_textSignal;
     RAC(self.viewModel,sePassword) = self.sePasswordTF.rac_textSignal;
-    RAC(self.updateBtn,enabled) = self.viewModel.updateEnable;
     
     @weakify(self);
     [[self.getCodeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {

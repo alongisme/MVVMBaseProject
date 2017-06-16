@@ -13,8 +13,6 @@
 @property (nonatomic, copy) NSString *account;
 //密码
 @property (nonatomic, copy) NSString *password;
-//是否可以登录
-@property (nonatomic, strong) RACSignal *loginEnableSignal;
 //登录
 @property (nonatomic, strong) RACCommand *loginCommand;
 @end

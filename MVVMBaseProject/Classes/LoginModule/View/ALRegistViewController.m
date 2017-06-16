@@ -20,7 +20,6 @@
 @property (nonatomic, strong) UITextField *sePasswordTF;
 @property (nonatomic, strong) UIButton *agreementBtn;
 @property (nonatomic, strong) UIButton *registBtn;
-
 @end
 
 @implementation ALRegistViewController
@@ -84,7 +83,6 @@
     RAC(self.viewModel,code) = self.codeTF.rac_textSignal;
     RAC(self.viewModel,password) = self.passwordTF.rac_textSignal;
     RAC(self.viewModel,sePassword) = self.sePasswordTF.rac_textSignal;
-    RAC(self.registBtn,enabled) = self.viewModel.registEnable;
     
     @weakify(self);
     [[self.getCodeBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {

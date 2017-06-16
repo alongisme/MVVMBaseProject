@@ -7,5 +7,5 @@
 //
 
 @interface ALImagePickerController : NSObject
-- (instancetype)initWithController:(UIViewController *)controller SourceType:(UIImagePickerControllerSourceType)soureType choseImageBlcok:(void (^)(UIImage *image))choseImageBlock cannelBlock:(void (^)())cannelBlock;
+- (instancetype)initWithController:(UIViewController *)controller SourceType:(UIImagePickerControllerSourceType)soureType choseImageBlcok:(void (^)(UIImage *image,NSDictionary *info))choseImageBlock cannelBlock:(void (^)())cannelBlock;
 @end

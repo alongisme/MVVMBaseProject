@@ -7,7 +7,7 @@
 //
 
 #import "ThreeViewModel.h"
-#import "FourViewModel.h"
+#import "ALLoginViewModel.h"
 #import "ThreeModel.h"
 
 @implementation ThreeViewModel
@@ -54,7 +54,14 @@
     }];
     
     self.itemDidSelectCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSNumber *index) {
-        NSLog(@"%@",index);
+        @strongify(self);
+        if(index.integerValue == 0) {
+            NSLog(@"头像访问");
+        }
+        
+        if(index.integerValue == 9) {
+            [self.services resetRootViewModel:[[ALLoginViewModel alloc] initWithServices:self.services params:nil]];
+        }
         return [RACSignal empty];
     }];
     
@@ -71,12 +78,9 @@
 }
 
 - (RACSignal *)requestRemoteDataSignal {
-    return [[self.services.networkService requestDataWithUrl:@"/testData" params:@{}] map:^id(NSDictionary *dataSource) {
-        NSArray *chaptersArr = [dataSource jk_arrayForKey:@"data"];
-        return [[chaptersArr.rac_sequence map:^id(id value) {
-            ThreeModel *model = [ThreeModel mj_objectWithKeyValues:value];
-            return model;
-        }] array];
+    return [[self.services.networkService requestDataWithUrl:[Request_Domain stringByAppendingString:@"/testData"] params:@{}] map:^id(NSDictionary *dataSource) {
+        
+        return nil;
     }];
 }
 @end

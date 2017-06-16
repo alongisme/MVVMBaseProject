@@ -175,17 +175,17 @@ NSString * const ALScrollViewBackgroundColorBottomLineView = @"ALScrollViewBackg
     if(tag >= 100 && tag < 200) {
         [[tapGestureRecognizer rac_gestureSignal] subscribeNext:^(UIGestureRecognizer *recognizer) {
             @strongify(self);
-            [self.viewModel.headDidSelectCommand execute:@(recognizer.view.tag)];
+            [self.viewModel.headDidSelectCommand execute:@(recognizer.view.tag % 100)];
         }];
     } else if (tag >= 200 && tag < 300) {
         [[tapGestureRecognizer rac_gestureSignal] subscribeNext:^(UIGestureRecognizer *recognizer) {
             @strongify(self);
-            [self.viewModel.headDidSelectCommand execute:@(recognizer.view.tag)];
+            [self.viewModel.itemDidSelectCommand execute:@(recognizer.view.tag % 200)];
         }];
     } else {
         [[tapGestureRecognizer rac_gestureSignal] subscribeNext:^(UIGestureRecognizer *recognizer) {
             @strongify(self);
-            [self.viewModel.headDidSelectCommand execute:@(recognizer.view.tag)];
+            [self.viewModel.footDidSelectCommand execute:@(recognizer.view.tag % 300)];
         }];
     }
 }

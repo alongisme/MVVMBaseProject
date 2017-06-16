@@ -17,7 +17,8 @@
 @implementation TwoTableViewCell
 
 - (void)BindModel:(TwoModel *)viewModel {
-    [self.iconIV sd_setImageWithURL:[NSURL URLWithString:viewModel.chapterImage]];
+    self.iconIV.image = [UIImage imageNamed:@"head.jpg"];
+//    [self.iconIV sd_setImageWithURL:[NSURL URLWithString:viewModel.chapterImage]];
     self.titleLab.text = viewModel.chapterName;
 }
 

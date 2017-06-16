@@ -10,6 +10,7 @@
 #import <AFNetworking.h>
 
 @implementation ALNetworkServicelmpl
+#pragma mark 用户登录
 /**
  用户登录
  
@@ -25,6 +26,7 @@
     return [self requestDataWithUrl:[Request_Domain stringByAppendingPathComponent:@"/userLogin"] params:params];
 }
 
+#pragma mark 用户注册
 /**
  用户注册
  
@@ -43,6 +45,7 @@
     return [self requestDataWithUrl:[Request_Domain stringByAppendingPathComponent:@"/userRegist"] params:params];
 }
 
+#pragma mark 用户重置密码（忘记密码）
 /**
  用户重置密码(忘记密码)
  
@@ -61,6 +64,7 @@
     return [self requestDataWithUrl:[Request_Domain stringByAppendingPathComponent:@"/forgetPassword"] params:params];
 }
 
+#pragma mark 获取短信验证码
 /**
  用户获取短信验证码
  
@@ -73,6 +77,14 @@
     return [self requestDataWithUrl:[Request_Domain stringByAppendingPathComponent:@"/getCode"] params:params];
 }
 
+#pragma mark 创建一个网络请求（POST）
+/**
+ 创建一个网络请求（POST）
+
+ @param url url
+ @param params 参数
+ @return 信号
+ */
 - (RACSignal *)requestDataWithUrl:(NSString *)url params:(NSDictionary *)params {
         
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
@@ -113,7 +125,18 @@
                 long code = [dataSource jk_longLongForKey:@"code"];
                 
                 if(code == 1) {
-                    [subscriber sendNext:[dataSource jk_dictionaryForKey:@"object"]?[dataSource jk_dictionaryForKey:@"object"]:[dataSource jk_stringForKey:@"object"]];
+                    NSDictionary *dataDictionary = [dataSource jk_dictionaryForKey:@"object"];
+                    NSArray *dataArray = [dataSource jk_arrayForKey:@"object"];
+                    NSString *dataString = [dataSource jk_stringForKey:@"object"];
+                    if ([dataDictionary isVaild]) {
+                        [subscriber sendNext:dataDictionary];
+                    } else if ([dataArray isVaild]) {
+                        [subscriber sendNext:dataArray];
+                    } else if ([dataString isVaild]) {
+                        [subscriber sendNext:dataString];
+                    } else {
+                        [subscriber sendNext:nil];
+                    }
                 } else {
                     NSError *error = [[NSError alloc] initWithDomain:url code:code userInfo:dataSource];
                     [subscriber sendError:error];

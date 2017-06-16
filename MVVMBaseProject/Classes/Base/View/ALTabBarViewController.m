@@ -24,7 +24,7 @@
 @dynamic viewModel;
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    //tabbar不需要调用基类方法
     //设置需要显示的控制器
     self.tabBarController.viewControllers = self.subViewControllers;
     //默认显示第一个控制器

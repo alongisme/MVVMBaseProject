@@ -39,6 +39,13 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.extendedLayoutIncludesOpaqueBars = YES;
     
+    [self.navigationBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@0);
+        make.centerX.equalTo(self.view);
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(ALNavigationBarHeight);
+    }];
+    
     //导航栏首界面不添加返回按钮
     if(self.navigationController.viewControllers.count > 1) {
         self.navigationBar.leftBarButtonItem = self.backBtnItem;
@@ -62,7 +69,7 @@
       ] subscribe:self.viewModel.touchReplaySubject];
     
     //绑定导航栏 返回按钮事件
-    [[self.backBtnItem.customView rac_signalForControlEvents:UIControlEventTouchUpInside] subscribe:self.viewModel.backBtnItemClick];
+    [[[self.backBtnItem.customView rac_signalForControlEvents:UIControlEventTouchUpInside] subscribe:self.viewModel.backBtnItemClick] rac_willDeallocSignal];
     
     //统一错误处理
     [self.viewModel.errors subscribeNext:^(NSError *error) {
@@ -88,13 +95,6 @@
     if(!_navigationBar) {
         _navigationBar = [[ALNavigationBarView alloc] init];
         [self.view addSubview:_navigationBar];
-        
-        [self.navigationBar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(@0);
-            make.centerX.equalTo(self.view);
-            make.width.equalTo(self.view);
-            make.height.mas_equalTo(ALNavigationBarHeight);
-        }];
     }
     return _navigationBar;
 }

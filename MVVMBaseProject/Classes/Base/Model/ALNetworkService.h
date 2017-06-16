@@ -7,6 +7,7 @@
 //
 
 @protocol ALNetworkService <NSObject>
+#pragma mark 用户登录
 /**
  用户登录
 
@@ -17,6 +18,7 @@
 - (RACSignal *)requestUserLoginWithAccount:(NSString *)account
                                   Password:(NSString *)password;
 
+#pragma mark 用户注册
 /**
  用户注册
  
@@ -28,7 +30,7 @@
 - (RACSignal *)requestUserRegistWithAccount:(NSString *)account
                                    Password:(NSString *)password
                                        code:(NSString *)code;
-
+#pragma mark 用户重置密码（忘记密码）
 /**
  用户重置密码(忘记密码)
  
@@ -40,7 +42,7 @@
 - (RACSignal *)requestUserForgetWithAccount:(NSString *)account
                                    Password:(NSString *)password
                                        code:(NSString *)code;
-
+#pragma mark 获取短信验证码
 /**
  用户获取短信验证码
  
@@ -49,6 +51,7 @@
  */
 - (RACSignal *)requestGetCodeWithAccount:(NSString *)account;
 
+#pragma mark 创建一个网络请求（POST）
 /**
  创建一个网络请求(POST)
  

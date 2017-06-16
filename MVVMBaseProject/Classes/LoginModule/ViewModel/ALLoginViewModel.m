@@ -15,13 +15,12 @@
 - (void)initialize {
     [super initialize];
     
-    self.loginEnableSignal = [RACCommonTools combineLatestInputSignal:@[RACObserve(self, account), RACObserve(self, password)]];
+    RACSignal *loginEnableSignal = [RACCommonTools combineLatestInputSignal:@[RACObserve(self, account), RACObserve(self, password)]];
     
     @weakify(self);
-    self.loginCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        
+    self.loginCommand = [[RACCommand alloc] initWithEnabled:loginEnableSignal signalBlock:^RACSignal *(id input) {
+        @strongify(self);
         return [[[self.services.networkService requestUserLoginWithAccount:self.account Password:self.password] doNext:^(NSDictionary *sourceData) {
-            @strongify(self);
             [sourceData AL_saveLocalWithLocalKey:UserDefult_UserInfoKey];
             
             ALTabBarViewModel *tabbarViewModel = [[ALTabBarViewModel alloc] initWithServices:self.services params:nil];

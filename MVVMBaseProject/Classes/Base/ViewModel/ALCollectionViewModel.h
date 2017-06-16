@@ -15,6 +15,8 @@
 @property (nonatomic, copy) NSArray *sectionIndexTitles;
 //分页
 @property (nonatomic, assign) NSUInteger nextPage;
+//分页大小
+@property (nonatomic, assign) NSUInteger pageSize;
 //上下拉刷新加载开关
 @property (nonatomic, assign) BOOL shouldPullToRefresh;
 @property (nonatomic, assign) BOOL shouldPullDownLoadMore;

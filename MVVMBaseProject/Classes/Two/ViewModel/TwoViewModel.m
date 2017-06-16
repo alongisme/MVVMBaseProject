@@ -39,10 +39,13 @@
 }
 
 - (RACSignal *)requestRemoteDataSignal {
-    return [[self.services.networkService requestDataWithUrl:@"/testData" params:@{}] map:^id(NSDictionary *dataSource) {
-        NSArray *chaptersArr = [dataSource jk_arrayForKey:@"data"];
-        return [[chaptersArr.rac_sequence map:^id(id value) {
-            return [TwoModel mj_objectWithKeyValues:value];
+    return [[self.services.networkService requestDataWithUrl:[Request_Domain stringByAppendingString:@"/testData"] params:@{}] map:^id(NSDictionary *dataSource) {
+        //        NSArray *chaptersArr = [dataSource jk_arrayForKey:@"object"];
+        //        J_TruncateTable(OneModel);
+        return [[dataSource.rac_sequence map:^id(id value) {
+            TwoModel *model = [TwoModel mj_objectWithKeyValues:value];
+            //            J_Insert(model).updateResult;
+            return model;
         }] array];
     }];
 }
