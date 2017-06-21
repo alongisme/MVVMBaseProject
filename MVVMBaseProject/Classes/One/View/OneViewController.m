@@ -21,12 +21,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.collection registerClass:[OneCollectionViewCell class] forCellWithReuseIdentifier:@"oneCollectionCellIdentifier"];
+    
+    [self.collection.mj_header beginRefreshing];
 }
 
 - (void)bindViewModel {
     [super bindViewModel];
-    
-    [self.collection.mj_header beginRefreshing];
 }
 
 - (UICollectionViewCell *)collection:(UICollectionView *)collection dequeueReusableCellWithIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath {

@@ -11,6 +11,7 @@
 
 @property (nonatomic, strong) NSString *oneName;
 @property (nonatomic, strong) NSString *oneValue;
+@property (nonatomic, strong) UIImage *oneValueImg;
 
 @property (nonatomic, strong) NSString *twoName;
 @property (nonatomic, strong) NSString *twoValue;

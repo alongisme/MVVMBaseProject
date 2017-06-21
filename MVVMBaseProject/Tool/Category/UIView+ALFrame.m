@@ -202,7 +202,10 @@
                 }
                 
                 if(sum > ((style == 0 || style == 4) ? self.al_width : self.al_height)) {
-                    (style == 0 || style == 4) ? (NSLog(@"subviews sum width > self width")) : (NSLog(@"subviews sum height > self height"));
+                    if(style == 0 || style == 4)
+                        NSLog(@"subviews sum width > self width");
+                    else
+                        NSLog(@"subviews sum height > self height");
                 } else {
                     CGFloat spacing = (((style == 0 || style == 4) ? self.al_width : self.al_height) - sum) / (count + 1);
                     CGFloat lastMax = 0;
@@ -225,7 +228,10 @@
                 }
                 
                 if(sum > (style == 1 || style == 5 ? self.al_width : self.al_height)) {
-                    (style == 1 || style == 5) ? (NSLog(@"subviews sum width > self width")) : (NSLog(@"subviews sum height > self height"));
+                    if(style == 1 || style == 5)
+                        NSLog(@"subviews sum width > self width");
+                    else
+                        NSLog(@"subviews sum height > self height");
                 } else {
                     CGFloat spacing = (((style == 1 || style == 5) ? self.al_width : self.al_height) - sum) / (count - 1);
                     CGFloat lastMax = 0;

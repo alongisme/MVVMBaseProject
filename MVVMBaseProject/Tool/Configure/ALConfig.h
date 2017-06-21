@@ -42,4 +42,8 @@
 
 //域名
 #define Request_Domain @"http://localhost:8181/along"
+//图片域名
+#define Request_Image @"http://localhost:8181"
+
+//#define Request_Domain @"http://192.168.3.91:8181/along"
 #endif /* ALConfig_h */

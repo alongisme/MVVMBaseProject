@@ -7,7 +7,6 @@
 //
 
 #import "ThreeViewModel.h"
-#import "ALLoginViewModel.h"
 #import "ThreeModel.h"
 
 @implementation ThreeViewModel
@@ -44,7 +43,7 @@
         threeModel.eightName = @"出生年月";
         threeModel.eightValue = @"1900-01-01";
         
-        threeModel.nineName = @"备用";
+        threeModel.nineName = @"照片";
         threeModel.nineValue = @"";
         
         threeModel.tenName = @"退出登录";
@@ -54,13 +53,16 @@
     }];
     
     self.itemDidSelectCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSNumber *index) {
-        @strongify(self);
         if(index.integerValue == 0) {
-            NSLog(@"头像访问");
+            return [RACSignal return:@(ALCommonTypeTakePhotos)];
+        }
+        
+        if(index.integerValue == 7) {
+            return [RACSignal return:@(ALCommonTypeDisplayDate)];
         }
         
         if(index.integerValue == 9) {
-            [self.services resetRootViewModel:[[ALLoginViewModel alloc] initWithServices:self.services params:nil]];
+            return [RACSignal return:@(ALCommonTypeUserLogout)];
         }
         return [RACSignal empty];
     }];

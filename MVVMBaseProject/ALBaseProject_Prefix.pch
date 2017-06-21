@@ -34,6 +34,8 @@
 #import "ALFileManager.h"
 #import "ALCategory.h"
 #import "RACCommonTools.h"
+#import "ALAlertController.h"
+#import "ALImagePickerController.h"
 #endif
 
 

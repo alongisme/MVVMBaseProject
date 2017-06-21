@@ -51,6 +51,16 @@
  */
 - (RACSignal *)requestGetCodeWithAccount:(NSString *)account;
 
+#pragma mark 上传文件
+/**
+ 上传文件
+ 
+ @param imageArray 文件数组
+ @return 信号
+ */
+- (RACSignal *)requestDataWithImageArray:(NSArray *)imageArray;
+
+
 #pragma mark 创建一个网络请求（POST）
 /**
  创建一个网络请求(POST)

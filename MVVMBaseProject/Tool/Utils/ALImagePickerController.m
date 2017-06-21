@@ -7,6 +7,7 @@
 //
 
 #import "ALImagePickerController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface ALImagePickerController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic,copy) void (^choseImage)(UIImage *image, NSDictionary *info);
@@ -15,22 +16,16 @@
 
 @implementation ALImagePickerController
 
-- (instancetype)initWithController:(UIViewController *)controller SourceType:(UIImagePickerControllerSourceType)soureType choseImageBlcok:(void (^)(UIImage *image,NSDictionary *info))choseImageBlock cannelBlock:(void (^)())cannelBlock {
+- (instancetype)initWithSourceType:(UIImagePickerControllerSourceType)soureType Edit:(BOOL)edit choseImageBlcok:(void (^)(UIImage *image,NSDictionary *info))choseImageBlock cannelBlock:(void (^)())cannelBlock {
     if(self = [super init]) {
         self.choseImage = choseImageBlock;
         self.cannel = cannelBlock;
-        
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.allowsEditing = YES;
-        // 设置代理
-        imagePickerController.delegate = self;
-        
+        self.allowsEditing = edit;
+        self.delegate = self;
         // 判断数据来源是否可用
         if([UIImagePickerController isSourceTypeAvailable:soureType]) {
             // 设置数据来源
-            imagePickerController.sourceType = soureType;
-            // 打开相机/相册/图库
-            [controller presentViewController:imagePickerController animated:YES completion:nil];
+            self.sourceType = soureType;
         }
     }
     return self;
@@ -47,9 +42,44 @@
 // 选择完成
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    if(_choseImage) {
-        _choseImage(image,info);
-    }
-    [picker dismissViewControllerAnimated:YES completion:nil];
+        
+    __weak typeof(self) weakself = self;
+    [picker dismissViewControllerAnimated:YES completion:^{
+        if(weakself.choseImage) {
+            weakself.choseImage(image,info);
+        }
+    }];
+}
+
+- (RACSignal *)SignalWithViewController:(UIViewController *)viewController SourceType:(UIImagePickerControllerSourceType)soureType Edit:(BOOL)edit {
+    @weakify(self);
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        
+        UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+        
+        pickerController.allowsEditing = edit;
+        pickerController.delegate = self;
+        // 判断数据来源是否可用
+        if([UIImagePickerController isSourceTypeAvailable:soureType]) {
+            // 设置数据来源
+            pickerController.sourceType = soureType;
+        }
+        [viewController presentViewController:pickerController animated:YES completion:nil];
+        
+        [[self rac_signalForSelector:@selector(imagePickerController:didFinishPickingMediaWithInfo:) fromProtocol:@protocol(UIImagePickerControllerDelegate)] subscribeNext:^(RACTuple *tuple) {
+            [subscriber sendNext:tuple.second];
+            [subscriber sendCompleted];
+        }];
+        
+        [[self rac_signalForSelector:@selector(imagePickerControllerDidCancel:) fromProtocol:@protocol(UIImagePickerControllerDelegate)] subscribeNext:^(id x) {
+            [subscriber sendNext:@999];
+            [subscriber sendCompleted];
+        }];
+        
+        return [RACDisposable disposableWithBlock:^{
+            [pickerController dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }];
 }
 @end

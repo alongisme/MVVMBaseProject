@@ -17,9 +17,8 @@
 @implementation OneCollectionViewCell
 
 - (void)BindModel:(OneModel *)viewModel {
-    self.iconIV.image = [UIImage imageNamed:@"head.jpg"];
-//    [self.iconIV sd_setImageWithURL:[NSURL URLWithString:viewModel.chapterImage]];
     self.titleLab.text = viewModel.chapterName;
+    [self.iconIV sd_setImageWithURL:[NSURL URLWithString:[Request_Image stringByAppendingString:viewModel.chapterImage]]];
 }
 
 - (void)layoutSubviews {

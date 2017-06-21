@@ -52,6 +52,8 @@ NSString * const ALScrollViewBackgroundColorBottomLineView = @"ALScrollViewBackg
     [super viewDidLoad];
     
     self.scrollView = self.alScrollView;
+    
+    [self initSubviews];
 }
 
 - (void)bindViewModel {
@@ -211,7 +213,17 @@ NSString * const ALScrollViewBackgroundColorBottomLineView = @"ALScrollViewBackg
 - (NSDictionary *)itemBottomLineViewAtIndex:(NSUInteger)index { return ALOptionBottonLine(CGSizeMake(self.scrollView.bounds.size.width - 15, 0.5), CGPointMake(15, 0), AL_SetColor(52, 53, 61, 1)); }
 
 - (void)reloadData {
-    
+    for (UIView *view in _itemArray) {
+        if([view conformsToProtocol:@protocol(BindModel)]) {
+            if([view respondsToSelector:@selector(BindModel:)])
+                if(self.viewModel.dataModel) {
+                    [view BindModel:self.viewModel.dataModel];
+                }
+        }
+    }
+}
+
+- (void)reloadDataAndUI {
     [_headArray removeAllObjects];
     [_itemArray removeAllObjects];
     [_footArray removeAllObjects];

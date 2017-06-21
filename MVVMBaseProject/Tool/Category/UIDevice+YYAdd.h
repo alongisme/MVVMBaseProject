@@ -41,9 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// Whether the device is a simulator.
 @property (nonatomic, readonly) BOOL isSimulator;
 
-/// Whether the device is jailbroken.
-@property (nonatomic, readonly) BOOL isJailbroken;
-
 /// Wherher the device can make phone calls.
 @property (nonatomic, readonly) BOOL canMakePhoneCalls NS_EXTENSION_UNAVAILABLE_IOS("");
 

@@ -53,10 +53,17 @@
 }
 
 - (void)bindViewModel {
-    RAC(self,title) = RACObserve(self.viewModel,title);
-    RAC(self.navigationBar, navigationTitle) = RACObserve(self,title);
-    RAC(self.navigationBar, leftBarButtonItem) = RACObserve(self.navigationItem, leftBarButtonItem);
-    RAC(self.navigationBar, rightBarButtonItem) = RACObserve(self.navigationItem, rightBarButtonItem);
+    
+    BOOL (^fileter)(id) = ^(id value) {
+        return [value isVaild];
+    };
+    
+    RAC(self,title) = [RACObserve(self.viewModel,title) filter:fileter];
+    RAC(self.navigationBar, navigationTitle) = [RACObserve(self,title) filter:fileter];
+    RAC(self.navigationBar, leftBarButtonItem) = [RACObserve(self.navigationItem, leftBarButtonItem) filter:fileter];
+    RAC(self.navigationBar, rightBarButtonItem) = [RACObserve(self.navigationItem, rightBarButtonItem) filter:fileter];
+    RAC(self.navigationBar, leftBarButtonItems) = [RACObserve(self.navigationItem, leftBarButtonItems) filter:fileter];
+    RAC(self.navigationBar, rightBarButtonItems) = [RACObserve(self.navigationItem, rightBarButtonItems) filter:fileter];
 
     @weakify(self);
     //以下方法控制器不常用所以暂不添加 只添加一个点击代理 避免复杂的判断

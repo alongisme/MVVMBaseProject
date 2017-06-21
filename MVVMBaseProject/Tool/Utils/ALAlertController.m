@@ -11,98 +11,110 @@
 
 @implementation ALAlertController
 // 单个或没有按钮
-
-+ (void)showAlertViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)btnTitle buttonStyle:(ALAlertViewActionStyle)buttonStyle {
-    
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    if (btnTitle.length) {
-        UIAlertActionStyle actionStyle = (buttonStyle == ALAlertViewActionStyleDefault) ? UIAlertActionStyleDefault : ((buttonStyle ==  ALAlertViewActionStyleCancel) ? UIAlertActionStyleCancel : UIAlertActionStyleDestructive);
-        UIAlertAction * alertAction = alertAction = [UIAlertAction actionWithTitle:btnTitle style:actionStyle handler:^(UIAlertAction * _Nonnull action) {
++ (RACSignal *)SiganlShowAlertViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)btnTitle buttonStyle:(ALAlertViewActionStyle)buttonStyle {
+    @weakify(self);
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        if (btnTitle.length) {
+            UIAlertActionStyle actionStyle = (buttonStyle == ALAlertViewActionStyleDefault) ? UIAlertActionStyleDefault : ((buttonStyle ==  ALAlertViewActionStyleCancel) ? UIAlertActionStyleCancel : UIAlertActionStyleDestructive);
+            UIAlertAction * alertAction = alertAction = [UIAlertAction actionWithTitle:btnTitle style:actionStyle handler:^(UIAlertAction * _Nonnull action) {
+                [self performSelector:@selector(dismissAlertController:) withObject:alertController afterDelay:ALAlertShowTime];
+                [subscriber sendCompleted];
+            }];;
+            [alertController addAction:alertAction];
+            [viewController presentViewController:alertController animated:YES completion:nil];
+        } else {
+            [viewController presentViewController:alertController animated:YES completion:nil];
             [self performSelector:@selector(dismissAlertController:) withObject:alertController afterDelay:ALAlertShowTime];
-        }];;
-        [alertController addAction:alertAction];
-        [viewController presentViewController:alertController animated:YES completion:nil];
-    } else {
-        [viewController presentViewController:alertController animated:YES completion:nil];
-        [self performSelector:@selector(dismissAlertController:) withObject:alertController afterDelay:ALAlertShowTime];
-    }
+            [subscriber sendCompleted];
+        }
+        
+        return [RACDisposable disposableWithBlock:^{
+            [alertController dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }];
 }
 
 // 单个或多个按钮
-
-+ (void)showAlertViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message CallBackBlock:(CallBackBlock)block cancelButtonTitle:(NSString *)cancelBtnTitle destructiveButtonTitle:(NSString *)destructiveBtnTitle otherButtonTitles:(NSString *)otherBtnTitles,... {
-    
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    //添加按钮
-    if (cancelBtnTitle.length) {
-        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancelBtnTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            block(0);
-        }];
-        [alertController addAction:cancelAction];
-    }
-    if (destructiveBtnTitle.length) {
-        UIAlertAction * destructiveAction = [UIAlertAction actionWithTitle:destructiveBtnTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            block(1);
-        }];
-        [alertController addAction:destructiveAction];
-    }
-    if (otherBtnTitles.length) {
-        UIAlertAction *otherActions = [UIAlertAction actionWithTitle:otherBtnTitles style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            (!cancelBtnTitle.length && !destructiveBtnTitle.length) ? block(0) : (((cancelBtnTitle.length && !destructiveBtnTitle.length) || (!cancelBtnTitle.length && destructiveBtnTitle.length)) ? block(1) : block(2));
-        }];
-        [alertController addAction:otherActions];
-        
-        va_list args;
-        va_start(args, otherBtnTitles);
-        if (otherBtnTitles.length) {
-            NSString * otherString;
-            int index = 2;
-            (!cancelBtnTitle.length && !destructiveBtnTitle.length) ? (index = 0) : ((cancelBtnTitle.length && !destructiveBtnTitle.length) || (!cancelBtnTitle.length && destructiveBtnTitle.length) ? (index = 1) : (index = 2));
-            while ((otherString = va_arg(args, NSString*))) {
-                index ++ ;
-                UIAlertAction * otherActions = [UIAlertAction actionWithTitle:otherString style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    block(index);
++ (RACSignal *)SignalShowAlertViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelBtnTitle destructiveButtonTitle:(NSString *)destructiveBtnTitle otherButtonTitles:(NSArray *)otherBtnTitles {
+    @weakify(self);
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        //添加按钮
+        if (cancelBtnTitle.length) {
+            UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancelBtnTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alertController addAction:cancelAction];
+        }
+        if (destructiveBtnTitle.length) {
+            UIAlertAction * destructiveAction = [UIAlertAction actionWithTitle:destructiveBtnTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                [subscriber sendNext:@(-1)];
+                [subscriber sendCompleted];
+            }];
+            [alertController addAction:destructiveAction];
+        }
+        if (otherBtnTitles.count > 0) {
+            
+            for (unsigned int i = 0; i < otherBtnTitles.count; i++) {
+                UIAlertAction *otherActions = [UIAlertAction actionWithTitle:otherBtnTitles[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    [subscriber sendNext:@(i+1)];
+                    [subscriber sendCompleted];
                 }];
                 [alertController addAction:otherActions];
             }
         }
-        va_end(args);
-    }
-    [viewController presentViewController:alertController animated:YES completion:nil];
-    
-    //如果没有按钮，自动延迟消失
-    if (!cancelBtnTitle.length && !destructiveBtnTitle.length && !otherBtnTitles) {
-        //此时self指本类
-        [self performSelector:@selector(dismissAlertController:) withObject:alertController afterDelay:ALAlertShowTime];
-    }
+        [viewController presentViewController:alertController animated:YES completion:nil];
+        
+        //如果没有按钮，自动延迟消失
+        if (!cancelBtnTitle.length && !destructiveBtnTitle.length && !otherBtnTitles) {
+            //此时self指本类
+            [self performSelector:@selector(dismissAlertController:) withObject:alertController afterDelay:ALAlertShowTime];
+        }
+        
+        return [RACDisposable disposableWithBlock:^{
+            [alertController dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }];
 }
 
 // 有输入框
 
-+ (void)showAlertTextFieldViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message TextFeildCallBackBlock:(TextFieldCallBackBlock)textBlock cancelButtonTitle:(NSString *)cancelBtnTitle otherButtonTitles:(NSString *)otherBtnTitle {
-    
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
++ (RACSignal *)SignalShowAlertTextFieldViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelBtnTitle otherButtonTitles:(NSArray *)otherBtnTitle {
+    @weakify(self);
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+
+        }];
+        if (cancelBtnTitle.length) {
+            UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancelBtnTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                [self dismissAlertController:alertController];
+            }];
+            [alertController addAction:cancelAction];
+        }
+        if (otherBtnTitle.count > 0) {
+            for (unsigned int i = 0; i < otherBtnTitle.count; i++) {
+                UIAlertAction * otherAction = [UIAlertAction actionWithTitle:otherBtnTitle[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    [subscriber sendNext:@{@"selectedIndex":@(i),@"textFiledArray":alertController.textFields}];
+                    [subscriber sendCompleted];
+                }];
+                [alertController addAction:otherAction];
+            }
+        }
+        [viewController presentViewController:alertController animated:YES completion:nil];
+        //如果没有按钮，自动延迟消失
+        if (!cancelBtnTitle.length && otherBtnTitle.count == 0) {
+            //此时self指本类
+            [self performSelector:@selector(dismissAlertController:) withObject:alertController afterDelay:ALAlertShowTime];
+        }
+        
+        return [RACDisposable disposableWithBlock:^{
+            [alertController dismissViewControllerAnimated:YES completion:nil];
+        }];
     }];
-    if (cancelBtnTitle.length) {
-        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:cancelBtnTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            [self dismissAlertController:alertController];
-        }];
-        [alertController addAction:cancelAction];
-    }
-    if (otherBtnTitle.length) {
-        UIAlertAction * otherAction = [UIAlertAction actionWithTitle:otherBtnTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            textBlock([alertController.textFields firstObject].text);
-        }];
-        [alertController addAction:otherAction];
-    }
-    [viewController presentViewController:alertController animated:YES completion:nil];
-    //如果没有按钮，自动延迟消失
-    if (!cancelBtnTitle.length && !otherBtnTitle.length) {
-        //此时self指本类
-        [self performSelector:@selector(dismissAlertController:) withObject:alertController afterDelay:ALAlertShowTime];
-    }
-    
 }
 // ======================================================================== ----- AlertView end----- ==================================================================================
 #pragma mark ==== 点击事件 ======
@@ -112,70 +124,72 @@
 
 // ======================================================================== -- ActionSheet Start -- ====================================================================================
 
-+ (void)showAlertActionSheetViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)btnTitle buttonStyle:(ALAlertViewActionStyle)buttonStyle {
-    
-    UIAlertController * actionController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
-    if (btnTitle.length) {
-        UIAlertActionStyle actionStyle = (buttonStyle == ALAlertViewActionStyleDefault) ? UIAlertActionStyleDefault : ((buttonStyle ==  ALAlertViewActionStyleCancel) ? UIAlertActionStyleCancel : UIAlertActionStyleDestructive);
-        UIAlertAction * alertAction = alertAction = [UIAlertAction actionWithTitle:btnTitle style:actionStyle handler:^(UIAlertAction * _Nonnull action) {
++ (RACSignal *)SignalShowAlertActionSheetViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)btnTitle buttonStyle:(ALAlertViewActionStyle)buttonStyle {
+    @weakify(self);
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        UIAlertController * actionController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
+        if (btnTitle.length) {
+            UIAlertActionStyle actionStyle = (buttonStyle == ALAlertViewActionStyleDefault) ? UIAlertActionStyleDefault : ((buttonStyle ==  ALAlertViewActionStyleCancel) ? UIAlertActionStyleCancel : UIAlertActionStyleDestructive);
+            UIAlertAction * alertAction = alertAction = [UIAlertAction actionWithTitle:btnTitle style:actionStyle handler:^(UIAlertAction * _Nonnull action) {
+                [self performSelector:@selector(dismissAlertController:) withObject:actionController afterDelay:ALAlertShowTime];
+                [subscriber sendCompleted];
+            }];;
+            [actionController addAction:alertAction];
+            [viewController presentViewController:actionController animated:YES completion:nil];
+        } else {
+            [viewController presentViewController:actionController animated:YES completion:nil];
+            //如果没有按钮，自动延迟消失
             [self performSelector:@selector(dismissAlertController:) withObject:actionController afterDelay:ALAlertShowTime];
-        }];;
-        [actionController addAction:alertAction];
-        [viewController presentViewController:actionController animated:YES completion:nil];
-    } else {
-        [viewController presentViewController:actionController animated:YES completion:nil];
-        //如果没有按钮，自动延迟消失
-        [self performSelector:@selector(dismissAlertController:) withObject:actionController afterDelay:ALAlertShowTime];
-    }
+            [subscriber sendCompleted];
+        }
+        
+        return [RACDisposable disposableWithBlock:^{
+            [actionController dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }];
 }
 
-+ (void)showAlertActionSheetWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message callbackBlock:(CallBackBlock)block destructiveButtonTitle:(NSString *)destructiveBtnTitle cancelButtonTitle:(NSString *)cancelBtnTitle otherButtonTitles:(NSString *)otherBtnTitles, ... {
-    
-    UIAlertController * actionController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
-    //添加按钮
-    if (destructiveBtnTitle.length) {
-        UIAlertAction *destructiveAction = [UIAlertAction actionWithTitle:destructiveBtnTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            block(0);
-        }];
-        [actionController addAction:destructiveAction];
-    }
-    if (cancelBtnTitle.length) {
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelBtnTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            destructiveBtnTitle.length ? block(1) : block(0);
-        }];
-        [actionController addAction:cancelAction];
-    }
-    if (otherBtnTitles.length)
-    {
-        UIAlertAction *otherActions = [UIAlertAction actionWithTitle:otherBtnTitles style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            (!cancelBtnTitle.length && !destructiveBtnTitle.length) ? block(0) : (((destructiveBtnTitle.length && !cancelBtnTitle.length) || (!destructiveBtnTitle.length && cancelBtnTitle.length)) ? block(1) : block(2));
-        }];
-        [actionController addAction:otherActions];
++ (RACSignal *)SignalShowAlertActionSheetWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message destructiveButtonTitle:(NSString *)destructiveBtnTitle cancelButtonTitle:(NSString *)cancelBtnTitle otherButtonTitles:(NSArray *)otherBtnTitles {
+    @weakify(self);
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        UIAlertController * actionController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
         
-        
-        va_list args;
-        va_start(args, otherBtnTitles);
-        if (otherBtnTitles.length) {
-            NSString * otherString;
-            int index = 2;
-            (!cancelBtnTitle.length && !destructiveBtnTitle.length) ? (index = 0) : ((cancelBtnTitle.length && !destructiveBtnTitle.length) || (!cancelBtnTitle.length && destructiveBtnTitle.length) ? (index = 1) : (index = 2));
-            while ((otherString = va_arg(args, NSString*))) {
-                index ++ ;
-                UIAlertAction * otherActions = [UIAlertAction actionWithTitle:otherString style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    block(index);
+        if (otherBtnTitles.count > 0)
+        {
+            for (unsigned int i = 0; i < otherBtnTitles.count; i++) {
+                UIAlertAction * otherActions = [UIAlertAction actionWithTitle:otherBtnTitles[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [subscriber sendNext:@(i + 1)];
                 }];
                 [actionController addAction:otherActions];
             }
         }
-        va_end(args);
-    }
-    [viewController presentViewController:actionController animated:YES completion:nil];
-    
-    //如果没有按钮，自动延迟消失
-    if (!cancelBtnTitle.length && !destructiveBtnTitle.length && !otherBtnTitles.length) {
-        //此时self指本类
-        [self performSelector:@selector(dismissAlertController:) withObject:actionController afterDelay:ALAlertShowTime];
-    }
-    
+        [viewController presentViewController:actionController animated:YES completion:nil];
+        
+        if (cancelBtnTitle.length) {
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelBtnTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            }];
+            [actionController addAction:cancelAction];
+        }
+        
+        if (destructiveBtnTitle.length) {
+            UIAlertAction *destructiveAction = [UIAlertAction actionWithTitle:destructiveBtnTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                [subscriber sendNext:@-1];
+            }];
+            [actionController addAction:destructiveAction];
+        }
+        
+        //如果没有按钮，自动延迟消失
+        if (!cancelBtnTitle.length && !destructiveBtnTitle.length && !otherBtnTitles.count) {
+            //此时self指本类
+            [self performSelector:@selector(dismissAlertController:) withObject:actionController afterDelay:ALAlertShowTime];
+            [subscriber sendCompleted];
+        }
+        
+        return [RACDisposable disposableWithBlock:^{
+            [actionController dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }];
 }
 @end

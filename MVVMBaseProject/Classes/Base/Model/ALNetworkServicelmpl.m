@@ -77,6 +77,47 @@
     return [self requestDataWithUrl:[Request_Domain stringByAppendingPathComponent:@"/getCode"] params:params];
 }
 
+#pragma mark 上传文件
+/**
+ 上传文件
+ 
+ @param imageArray 文件数组
+ @return 信号
+ */
+- (RACSignal *)requestDataWithImageArray:(NSArray *)imageArray {
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+  
+        NSURLSessionDataTask *uploadTask = [[ALNetworkConnect sharedInstance].sessionManager POST:[Request_Domain stringByAppendingPathComponent:@"/upload"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            
+            if(imageArray.count == 0) {
+                NSLog(@"image Array can not be nil");
+                [subscriber sendCompleted];
+            }
+            
+            for (UIImage *image in imageArray) {
+                NSData *imgData = UIImageJPEGRepresentation(image, 0.8);
+                [formData appendPartWithFileData:imgData name:@"fieldName" fileName:@"upload.jpg" mimeType:@"image/*"];
+            }
+            
+        } progress:^(NSProgress * _Nonnull uploadProgress) {
+            NSLog(@"---上传进度--- %@",uploadProgress);
+            [subscriber sendNext:@(uploadProgress.fractionCompleted)];
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"%@",responseObject);
+            [subscriber sendNext:responseObject];
+            [subscriber sendCompleted];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+            [subscriber sendError:error];
+            [subscriber sendCompleted];
+        }];
+        
+        return [RACDisposable disposableWithBlock:^{
+            [uploadTask cancel];
+        }];
+    }];
+}
+
 #pragma mark 创建一个网络请求（POST）
 /**
  创建一个网络请求（POST）

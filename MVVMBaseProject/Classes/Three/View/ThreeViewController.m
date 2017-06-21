@@ -7,7 +7,9 @@
 //
 
 #import "ThreeViewController.h"
+#import "ALLoginViewModel.h"
 #import "ThreeViewModel.h"
+#import "HcdDateTimePickerView.h"
 #import "OneView.h"
 #import "TwoView.h"
 #import "ThreeView.h"
@@ -21,6 +23,8 @@
 
 @interface ThreeViewController ()
 @property (nonatomic, strong) ThreeViewModel *viewModel;
+//相机
+@property (nonatomic, strong) ALImagePickerController *imagePickerController;
 @end
 
 @implementation ThreeViewController
@@ -37,6 +41,50 @@
 - (void)bindViewModel {
     [super bindViewModel];
     
+    @weakify(self);
+    [self.viewModel.itemDidSelectCommand.executionSignals.switchToLatest subscribeNext:^(NSNumber *value) {
+        @strongify(self);
+        
+        switch (value.integerValue) {
+            case ALCommonTypeTakePhotos: {
+                [[[[ALAlertController SignalShowAlertActionSheetWith:self title:nil message:nil destructiveButtonTitle:nil cancelButtonTitle:@"取消" otherButtonTitles:@[@"本地图库",@"拍照"]] flattenMap:^RACStream *(NSNumber *index) {
+                    return [self.imagePickerController SignalWithViewController:self SourceType:index.integerValue - 1 Edit:NO];
+                }] flattenMap:^RACStream *(NSDictionary *info) {
+                    return [[self.viewModel.services.networkService requestDataWithImageArray:@[info[UIImagePickerControllerOriginalImage]]] takeUntil:self.rac_willDeallocSignal];
+                }] subscribeNext:^(id respose) {
+                    if([respose isKindOfClass:[NSDictionary class]]) {
+                        [self.view showHudSuccess:[respose jk_stringForKey:@"message"]];
+                        ((ThreeModel *)self.viewModel.dataModel).oneValue = [respose jk_stringForKey:@"object"];
+                        [self reloadData];
+                    }
+                }];
+            }
+                break;
+            case ALCommonTypeDisplayDate: {
+                HcdDateTimePickerView *dateTimePickerView = [[HcdDateTimePickerView alloc] initWithDatePickerMode:DatePickerDateMode defaultDateTime:[NSDate date]];
+                dateTimePickerView.topViewColor = [UIColor lightGrayColor];
+                dateTimePickerView.buttonTitleColor = [UIColor whiteColor];
+                dateTimePickerView.minYear = 1900;
+                dateTimePickerView.maxYear = [NSDate date].jk_year;
+                [ALKeyWindow addSubview:dateTimePickerView];
+                [dateTimePickerView showHcdDateTimePicker];
+                
+                dateTimePickerView.clickedOkBtn = ^(NSString *dateTimeStr) {
+                    ((ThreeModel *)self.viewModel.dataModel).eightValue = dateTimeStr;
+                    [self reloadData];
+                };
+            }
+                break;
+            case ALCommonTypeUserLogout: {
+                [[ALAlertController SignalShowAlertViewWith:self title:@"提示" message:@"是否退出登录？" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"确定"]] subscribeNext:^(id x) {
+                    [self.viewModel.services resetRootViewModel:[[ALLoginViewModel alloc] initWithServices:self.viewModel.services params:nil]];
+                }];
+            }
+                break;
+            default:
+                break;
+        }
+    }];
 }
 
 - (NSUInteger)itemNumber {
@@ -109,7 +157,7 @@
     UIColor *bgColor = [UIColor whiteColor];
     NSNumber *didSelected = @0;
     
-    if(index == 0 || index == 9) {
+    if(index == 0 || index == 7 || index == 9) {
         if(index == 0)
             itemSize = CGSizeMake(itemSize.width, 100);
         didSelected = @1;
@@ -120,4 +168,12 @@
 //- (NSDictionary *)footOptionAtIndex:(NSUInteger)index {
 //    return ALOptionFoot(CGSizeMake(self.view.bounds.size.width, 30), CGPointZero, @0, [UIColor whiteColor]);
 //}
+
+#pragma mark lazy load
+- (ALImagePickerController *)imagePickerController {
+    if(!_imagePickerController) {
+        _imagePickerController = [[ALImagePickerController alloc] init];
+    }
+    return _imagePickerController;
+}
 @end

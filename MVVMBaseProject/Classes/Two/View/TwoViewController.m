@@ -21,14 +21,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
     [self.tableView registerClass:[TwoTableViewCell class] forCellReuseIdentifier:@"TwoTableViewCell"];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)bindViewModel {
     [super bindViewModel];
-    
-    [self.tableView.mj_header beginRefreshing];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView dequeueReusableCellWithIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath {

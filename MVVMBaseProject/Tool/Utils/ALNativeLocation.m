@@ -68,19 +68,13 @@
             }
 //            NSLog(@"city = %@", city);
             
-            NSString *cityName = [city substringToIndex:[city length] -1];
+            NSString *cityName = [city substringToIndex:[city length] - 1];
             
             if(self.callBackCity) {
                 self.callBackCity(cityName,placemark);
             }
             
-            NSLog(@"%@", [city substringToIndex:[city length] -1]);
-            
-            //本地保存
-//            [city AL_saveLocalWithLocalKey:LocationCityName];
-            
-//            NSLog(@"%@",ALAppDelegate.locationCityName);
-            
+            NSLog(@"%@", [city substringToIndex:[city length] - 1]);            
         }
         else if (error == nil && [array count] == 0)
         {

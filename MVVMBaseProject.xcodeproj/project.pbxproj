@@ -40,6 +40,9 @@
 		BF8732271EA4CD5E0001270A /* RACCommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8732251EA4CD5E0001270A /* RACCommonTools.m */; };
 		BF87322A1EA4CDC30001270A /* ALImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8732291EA4CDC30001270A /* ALImagePickerController.m */; };
 		BF87322D1EA4CE7B0001270A /* QRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF87322C1EA4CE7B0001270A /* QRViewController.m */; };
+		BF88DD9F1EF7CE16003DCAF0 /* HcdDateTimePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF88DD9A1EF7CE16003DCAF0 /* HcdDateTimePickerView.m */; };
+		BF88DDA01EF7CE16003DCAF0 /* MXSCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF88DD9C1EF7CE16003DCAF0 /* MXSCycleScrollView.m */; };
+		BF88DDA11EF7CE16003DCAF0 /* UIColor+HcdCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = BF88DD9E1EF7CE16003DCAF0 /* UIColor+HcdCustom.m */; };
 		BF8975F01E9DFEF800592D60 /* OneViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8975EF1E9DFEF800592D60 /* OneViewModel.m */; };
 		BF8975F31E9DFF0500592D60 /* TwoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8975F21E9DFF0500592D60 /* TwoViewModel.m */; };
 		BF8975F61E9DFF1000592D60 /* ThreeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8975F51E9DFF1000592D60 /* ThreeViewModel.m */; };
@@ -178,6 +181,12 @@
 		BF8732291EA4CDC30001270A /* ALImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALImagePickerController.m; sourceTree = "<group>"; };
 		BF87322B1EA4CE7B0001270A /* QRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRViewController.h; sourceTree = "<group>"; };
 		BF87322C1EA4CE7B0001270A /* QRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRViewController.m; sourceTree = "<group>"; };
+		BF88DD991EF7CE16003DCAF0 /* HcdDateTimePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HcdDateTimePickerView.h; sourceTree = "<group>"; };
+		BF88DD9A1EF7CE16003DCAF0 /* HcdDateTimePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HcdDateTimePickerView.m; sourceTree = "<group>"; };
+		BF88DD9B1EF7CE16003DCAF0 /* MXSCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXSCycleScrollView.h; sourceTree = "<group>"; };
+		BF88DD9C1EF7CE16003DCAF0 /* MXSCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXSCycleScrollView.m; sourceTree = "<group>"; };
+		BF88DD9D1EF7CE16003DCAF0 /* UIColor+HcdCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HcdCustom.h"; sourceTree = "<group>"; };
+		BF88DD9E1EF7CE16003DCAF0 /* UIColor+HcdCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HcdCustom.m"; sourceTree = "<group>"; };
 		BF8975E11E9DFCC900592D60 /* ALConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALConfig.h; sourceTree = "<group>"; };
 		BF8975EE1E9DFEF800592D60 /* OneViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneViewModel.h; sourceTree = "<group>"; };
 		BF8975EF1E9DFEF800592D60 /* OneViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneViewModel.m; sourceTree = "<group>"; };
@@ -348,6 +357,19 @@
 				BF3764E71EF109D000F68A36 /* ALNavigationBarView.m */,
 			);
 			name = ALNavigationBarView;
+			sourceTree = "<group>";
+		};
+		BF88DD981EF7CE16003DCAF0 /* HcdDateTimePicker */ = {
+			isa = PBXGroup;
+			children = (
+				BF88DD991EF7CE16003DCAF0 /* HcdDateTimePickerView.h */,
+				BF88DD9A1EF7CE16003DCAF0 /* HcdDateTimePickerView.m */,
+				BF88DD9B1EF7CE16003DCAF0 /* MXSCycleScrollView.h */,
+				BF88DD9C1EF7CE16003DCAF0 /* MXSCycleScrollView.m */,
+				BF88DD9D1EF7CE16003DCAF0 /* UIColor+HcdCustom.h */,
+				BF88DD9E1EF7CE16003DCAF0 /* UIColor+HcdCustom.m */,
+			);
+			path = HcdDateTimePicker;
 			sourceTree = "<group>";
 		};
 		BF8975FD1E9E1B2A00592D60 /* View */ = {
@@ -521,6 +543,7 @@
 		BFA0E59A1E9CBBA800F4445B /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				BF88DD981EF7CE16003DCAF0 /* HcdDateTimePicker */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -905,6 +928,7 @@
 				TargetAttributes = {
 					BFA0E5551E9CBA8B00F4445B = {
 						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = KX9X69P79J;
 						ProvisioningStyle = Automatic;
 					};
 					BFA0E56E1E9CBA8B00F4445B = {
@@ -1121,6 +1145,7 @@
 				BF87320F1EA4C63F0001270A /* UIButton+JKTouchAreaInsets.m in Sources */,
 				BF3764E81EF109D000F68A36 /* ALNavigationBarView.m in Sources */,
 				BF9E082C1EA8BE7B0075EB45 /* NineView.m in Sources */,
+				BF88DD9F1EF7CE16003DCAF0 /* HcdDateTimePickerView.m in Sources */,
 				BF8976161E9E1D1500592D60 /* ALNavigationController.m in Sources */,
 				BF9E08231EA8BE5A0075EB45 /* SixView.m in Sources */,
 				BF9E08261EA8BE640075EB45 /* SevenView.m in Sources */,
@@ -1182,6 +1207,8 @@
 				BFA0E59E1E9CBC0100F4445B /* ALAppDelegate.m in Sources */,
 				BF6667441ECAE5FB009D7CE6 /* ALUserModel.m in Sources */,
 				BFBB59B01EC94A0B008248EB /* NSObject+IsVaild.m in Sources */,
+				BF88DDA01EF7CE16003DCAF0 /* MXSCycleScrollView.m in Sources */,
+				BF88DDA11EF7CE16003DCAF0 /* UIColor+HcdCustom.m in Sources */,
 				BFDC25081ECA9414001F1867 /* ALForgetPasswordViewModel.m in Sources */,
 				BF89762B1E9F57F100592D60 /* ALTableViewController.m in Sources */,
 				BF9E08291EA8BE700075EB45 /* EightView.m in Sources */,
@@ -1316,9 +1343,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KX9X69P79J;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MVVMBaseProject/ALBaseProject_Prefix.pch";
 				INFOPLIST_FILE = MVVMBaseProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.along.xlshi.MVVMBaseProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1332,9 +1360,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KX9X69P79J;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MVVMBaseProject/ALBaseProject_Prefix.pch";
 				INFOPLIST_FILE = MVVMBaseProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.along.xlshi.MVVMBaseProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";

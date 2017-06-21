@@ -30,28 +30,36 @@
 
 - (void)setUp {
     self.items = @[self.item];
-    
+
     @weakify(self);
+    //标题
     [RACObserve(self, navigationTitle) subscribeNext:^(id x) {
         @strongify(self);
-        if([x isVaild])
-            self.item.title = x;
+        self.item.title = x;
     }];
-    
+    //左按钮
     [RACObserve(self, leftBarButtonItem) subscribeNext:^(id x) {
         @strongify(self);
-        if([x isVaild])
-            self.item.leftBarButtonItem = x;
+        self.item.leftBarButtonItem = x;
     }];
-    
+    //右按钮
     [RACObserve(self, rightBarButtonItem) subscribeNext:^(id x) {
         @strongify(self);
-        if([x isVaild])
-            self.item.rightBarButtonItem = x;
+        self.item.rightBarButtonItem = x;
     }];
-    
+    //左按钮组
+    [RACObserve(self, leftBarButtonItems) subscribeNext:^(id x) {
+        @strongify(self);
+        self.item.leftBarButtonItems = x;
+    }];
+    //右按钮组
+    [RACObserve(self, rightBarButtonItems) subscribeNext:^(id x) {
+        @strongify(self);
+        self.item.rightBarButtonItems = x;
+    }];
 }
 
+#pragma mark lazy load
 - (UINavigationItem *)item {
     if(!_item) {
         _item = [[UINavigationItem alloc] initWithTitle:@""];

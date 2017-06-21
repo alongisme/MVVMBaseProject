@@ -12,31 +12,15 @@ typedef NS_ENUM(NSInteger, ALAlertViewActionStyle) {
     ALAlertViewActionStyleDestructive
 };
 
-typedef void (^CallBackBlock)(NSInteger btnIndex);
-
-typedef void (^TextFieldCallBackBlock)(NSString * text);
-
 @interface ALAlertController : NSObject
 
-+ (void)showAlertViewWith:(UIViewController *)viewController title:(NSString *)title
-                  message:(NSString *)message buttonTitle:(NSString *)btnTitle
-              buttonStyle:(ALAlertViewActionStyle)buttonStyle;
++ (RACSignal *)SiganlShowAlertViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)btnTitle buttonStyle:(ALAlertViewActionStyle)buttonStyle;
 
-+ (void)showAlertViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message
-            CallBackBlock:(CallBackBlock)textBlock cancelButtonTitle:(NSString *)cancelBtnTitle
-   destructiveButtonTitle:(NSString *)destructiveBtnTitle
-        otherButtonTitles:(NSString *)otherBtnTitles,...NS_REQUIRES_NIL_TERMINATION;
++ (RACSignal *)SignalShowAlertViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelBtnTitle destructiveButtonTitle:(NSString *)destructiveBtnTitle otherButtonTitles:(NSArray *)otherBtnTitles;
 
-+ (void)showAlertTextFieldViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message
-            TextFeildCallBackBlock:(TextFieldCallBackBlock)block cancelButtonTitle:(NSString *)cancelBtnTitle
-                 otherButtonTitles:(NSString *)otherBtnTitle;
++ (RACSignal *)SignalShowAlertTextFieldViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelBtnTitle otherButtonTitles:(NSArray *)otherBtnTitle;
 
-+ (void)showAlertActionSheetViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message
-                         buttonTitle:(NSString *)btnTitle buttonStyle:(ALAlertViewActionStyle)buttonStyle;
++ (RACSignal *)SignalShowAlertActionSheetViewWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message buttonTitle:(NSString *)btnTitle buttonStyle:(ALAlertViewActionStyle)buttonStyle;
 
-+ (void)showAlertActionSheetWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message
-                   callbackBlock:(CallBackBlock)block destructiveButtonTitle:(NSString *)destructiveBtnTitle
-               cancelButtonTitle:(NSString *)cancelBtnTitle
-               otherButtonTitles:(NSString *)otherBtnTitles, ...NS_REQUIRES_NIL_TERMINATION;
-
++ (RACSignal *)SignalShowAlertActionSheetWith:(UIViewController *)viewController title:(NSString *)title message:(NSString *)message destructiveButtonTitle:(NSString *)destructiveBtnTitle cancelButtonTitle:(NSString *)cancelBtnTitle otherButtonTitles:(NSArray *)otherBtnTitles;
 @end

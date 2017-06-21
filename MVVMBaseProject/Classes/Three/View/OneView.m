@@ -16,8 +16,7 @@
 
 - (void)BindModel:(ThreeModel *)model {
     self.nameLab.text = model.oneName;
-    UIImage *img = [UIImage imageNamed:model.oneValue];
-    self.headIV.image = img;
+    [self.headIV sd_setImageWithURL:[NSURL URLWithString:[Request_Image stringByAppendingString:model.oneValue]]];
 }
 
 - (void)layoutSubviews {

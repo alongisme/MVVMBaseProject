@@ -29,7 +29,7 @@
     [super viewDidLoad];
     
     [self.accountTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@84);
+        make.top.mas_offset(ALNavigationBarHeight + 20);
         make.left.equalTo(@30);
         make.right.equalTo(@-30);
         make.height.equalTo(@40);

@@ -13,4 +13,8 @@
 @property (nonatomic,strong) UIBarButtonItem *leftBarButtonItem;
 //右按钮item
 @property (nonatomic,strong) UIBarButtonItem *rightBarButtonItem;
+//左按钮组items
+@property (nonatomic,strong) UIBarButtonItem *leftBarButtonItems;
+//右按钮组items
+@property (nonatomic,strong) UIBarButtonItem *rightBarButtonItems;
 @end

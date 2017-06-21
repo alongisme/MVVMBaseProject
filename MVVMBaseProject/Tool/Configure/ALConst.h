@@ -15,6 +15,12 @@ typedef NS_ENUM(NSUInteger,ALErrorType) {
     ALErrorPasswordNotEquel = 601,
 };
 
+typedef NS_ENUM(NSUInteger,ALCommonType) {
+    ALCommonTypeTakePhotos = 700,
+    ALCommonTypeDisplayDate = 701,
+    ALCommonTypeUserLogout = 709,
+};
+
 //数据库保存路径名
 static NSString * const JRDB_DataBasePath = @"test.sqlite";
 

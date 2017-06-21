@@ -150,7 +150,12 @@ typedef NS_ENUM(NSInteger, ALScrollViewScrollDirection) {
 - (UIView *)footViewForItemAtIndex:(NSUInteger)index;
 
 /**
- 刷新
+ 刷新数据
  */
 - (void)reloadData;
+
+/**
+ 刷新数据和界面
+ */
+- (void)reloadDataAndUI;
 @end
