@@ -130,6 +130,8 @@
         
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
         NSURLSessionTask *task = [[ALNetworkConnect sharedInstance].sessionManager POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
             BOOL isJosn = [NSJSONSerialization isValidJSONObject:responseObject];
@@ -196,6 +198,7 @@
         
         return [RACDisposable disposableWithBlock:^{
             [task cancel];
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         }];
     }];
 }

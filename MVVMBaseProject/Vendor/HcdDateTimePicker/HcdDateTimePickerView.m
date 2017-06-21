@@ -638,7 +638,7 @@
 - (void)showHcdDateTimePicker
 {
     typeof(self) __weak weak = self;
-    [UIView animateWithDuration:0 delay:0.5 usingSpringWithDamping:0.0f initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.6f delay:0 usingSpringWithDamping:1.1f initialSpringVelocity:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
         
         [weak setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5f]];
         [timeBroadcastView setFrame:CGRectMake(0, kScreen_Height - kDatePickerHeight, kScreen_Width, kDatePickerHeight)];
@@ -658,7 +658,7 @@
     typeof(self) __weak weak = self;
     CGFloat height = kDatePickerHeight;
     
-    [UIView animateWithDuration:0.0f delay:0.5 usingSpringWithDamping:0.0f initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:0.6f delay:0 usingSpringWithDamping:1.1f initialSpringVelocity:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
         
         [weak setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.0f]];
         [timeBroadcastView setFrame:CGRectMake(0, kScreen_Height, kScreen_Width, height)];

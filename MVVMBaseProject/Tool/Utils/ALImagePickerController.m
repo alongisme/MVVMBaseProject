@@ -73,7 +73,6 @@
         }];
         
         [[self rac_signalForSelector:@selector(imagePickerControllerDidCancel:) fromProtocol:@protocol(UIImagePickerControllerDelegate)] subscribeNext:^(id x) {
-            [subscriber sendNext:@999];
             [subscriber sendCompleted];
         }];
         

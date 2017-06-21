@@ -214,12 +214,8 @@ NSString * const ALScrollViewBackgroundColorBottomLineView = @"ALScrollViewBackg
 
 - (void)reloadData {
     for (UIView *view in _itemArray) {
-        if([view conformsToProtocol:@protocol(BindModel)]) {
-            if([view respondsToSelector:@selector(BindModel:)])
-                if(self.viewModel.dataModel) {
-                    [view BindModel:self.viewModel.dataModel];
-                }
-        }
+        if([view conformsToProtocol:@protocol(BindModel)] && [view respondsToSelector:@selector(BindModel:)] && self.viewModel.dataModel)
+                [view BindModel:self.viewModel.dataModel];
     }
 }
 
@@ -235,12 +231,8 @@ NSString * const ALScrollViewBackgroundColorBottomLineView = @"ALScrollViewBackg
     [self initSubviews];
     
     for (UIView *view in _itemArray) {
-        if([view conformsToProtocol:@protocol(BindModel)]) {
-            if([view respondsToSelector:@selector(BindModel:)])
-                if(self.viewModel.dataModel) {
-                    [view BindModel:self.viewModel.dataModel];
-                }
-        }
+        if([view conformsToProtocol:@protocol(BindModel)] && [view respondsToSelector:@selector(BindModel:)] && self.viewModel.dataModel)
+            [view BindModel:self.viewModel.dataModel];
     }
 }
 
